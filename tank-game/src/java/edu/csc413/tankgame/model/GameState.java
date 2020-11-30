@@ -2,6 +2,9 @@ package edu.csc413.tankgame.model;
 
 import edu.csc413.tankgame.view.RunGameView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * GameState represents the state of the game "world." The GameState object tracks all of the moving entities like tanks
  * and shells, and provides the controller of the program (i.e. the GameDriver) access to whatever information it needs
@@ -25,4 +28,37 @@ public class GameState {
     // TODO: Implement.
     // There's a lot of information the GameState will need to store to provide contextual information. Add whatever
     // instance variables, constructors, and methods are needed.
+
+    //An arrayList of tanks, but we will be using entities instead
+    private final List<Entity> entities = new ArrayList<>();
+
+    public void addEntity(Entity entity) {
+        entities.add(entity);
+    }
+
+    public List<Entity> getEntities() {
+        return entities;
+    }
+
+    //if tank takes too much shells from the shells, it should be removed from this list
+
+    //Methods for player tank (edited by me)
+    //TODO: These , need to set up key listener to do this
+    public boolean upPressed() {
+        return true;
+    }
+
+    public boolean downPressed() {
+        return true;
+    }
+
+    public boolean rightPressed() {
+        return true;
+    }
+
+    public boolean leftPressed() {
+        return true;
+    }
+
+
 }

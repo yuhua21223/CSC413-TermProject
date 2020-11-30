@@ -2,7 +2,10 @@ package edu.csc413.tankgame.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
+import java.security.Key;
 
 /**
  * MainView is the primary view that contains and controls individual screens (represented by the separate StartMenuView
@@ -45,6 +48,14 @@ public class MainView {
         mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainJFrame.addKeyListener(null);
 
+        //TODO (Don't copy b/c will run into issues
+            //This is for keyboard to observe our pressing
+                //This is just for us to test the pressing of keys
+        KeyListener listener = new PrintListener();
+
+
+        mainJFrame.addKeyListener(listener);
+
         mainPanel = new JPanel();
         mainPanelLayout = new CardLayout();
         mainPanel.setLayout(mainPanelLayout);
@@ -59,6 +70,47 @@ public class MainView {
         mainPanel.add(runGameView, Screen.RUN_GAME_SCREEN.getScreenName());
 
         mainJFrame.add(mainPanel);
+    }
+
+    //DOn't copy this exactly, and wrong location?
+    //This basically help us understand key pressed
+        //
+    private static class PrintListener implements KeyListener {
+        //KeyEvent is from KeyListener
+        //Instead of outputing print statement, it should update the gamestate
+        //refer back to 56:20 of yt video
+
+        @Override
+        public void keyTyped(KeyEvent event) {
+            //useless
+        }
+
+        @Override
+        public void keyPressed(KeyEvent event) {
+            int keyCode = event.getKeyCode();
+            if (keyCode == KeyEvent.VK_W) {
+                System.out.println( " w was pressed");
+                //I would be using Esc button to get out of the game
+            } else if (keyCode == KeyEvent.VK_ESCAPE) {
+                System.out.println( " Escape was pressed");
+            }
+
+        }
+
+        @Override
+        public void keyReleased( KeyEvent event) {
+
+            int keyCode = event.getKeyCode();
+            if (keyCode == KeyEvent.VK_W) {
+                System.out.println( " w was released");
+            } else if (keyCode == KeyEvent.VK_ESCAPE) {
+                System.out.println( " Escape was released");
+            }
+
+        }
+
+
+
     }
 
     /**

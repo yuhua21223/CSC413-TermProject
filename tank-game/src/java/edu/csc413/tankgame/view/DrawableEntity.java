@@ -8,6 +8,7 @@ import java.net.URL;
 
 /** Represents an image that can be drawn on screen at a specific location and rotated at an angle. */
 class DrawableEntity {
+
     private final BufferedImage entityImage;
     private final AffineTransform affineTransform;
 

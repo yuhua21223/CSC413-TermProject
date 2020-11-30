@@ -31,6 +31,7 @@ public class RunGameView extends JPanel {
 
     private final BufferedImage worldImage;
     private final Map<String, DrawableEntity> drawableEntitiesById = new HashMap<>();
+    //Need a way to tie it to the drawable entities
 
     public RunGameView() {
         worldImage = new BufferedImage(SCREEN_DIMENSIONS.width, SCREEN_DIMENSIONS.height, BufferedImage.TYPE_INT_RGB);
@@ -39,6 +40,7 @@ public class RunGameView extends JPanel {
 
     /** Clears the DrawableEntities map. This should be invoked if the game is reset. */
     public void reset() {
+
         drawableEntitiesById.clear();
     }
 
