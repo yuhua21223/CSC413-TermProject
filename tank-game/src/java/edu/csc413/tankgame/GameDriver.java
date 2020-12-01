@@ -78,9 +78,6 @@ public class GameDriver {
         }
     }
 
-    //setting variable for x to be used
-    private double x = 200.0;
-
     //This is important for the graphical images
     private void runGame() {
         //we will have a initial location of where the tank will be starting out
@@ -100,6 +97,8 @@ public class GameDriver {
                         RunGameView.AI_TANK_INITIAL_Y,
                         RunGameView.AI_TANK_INITIAL_ANGLE
                 );
+
+
 
         gameState.addEntity(playerTank);
         gameState.addEntity(aiTank);
