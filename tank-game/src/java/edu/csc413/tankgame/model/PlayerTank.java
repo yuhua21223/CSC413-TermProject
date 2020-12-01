@@ -7,28 +7,31 @@ public class PlayerTank extends Tank{
         super (id, x, y, angle);
     }
 
+
     @Override
     public void move(GameState gameState) {
+
+
         // TODO: This part is left to me
         //The methods need to be implemented for this to work
         //Method located in GameState.java
 
+        if(gameState.upPressed()){
+            moveForward();
+        }
 
+        if( gameState.downPressed()){
+            moveBackward();
+        }
 
+        if (gameState.rightPressed()){
+            turnRight();
+        }
 
-//        if(gameState.upPressed()){
-//            moveForward();
-//            doNothing();
-//        }else if( gameState.downPressed()){
-//            moveBackward();
-//            doNothing();
-//        }else if (gameState.rightPressed()){
-//            turnRight();
-//            doNothing();
-//        }else if (gameState.leftPressed()) {
-//            turnLeft();
-//            doNothing();
-//        }else  doNothing();
+        if (gameState.leftPressed()) {
+            turnLeft();
+        }
+
 
     }
 

@@ -1,12 +1,19 @@
 package edu.csc413.tankgame.model;
 
+//import edu.csc413.tankgame.GameKeyListener;
 import edu.csc413.tankgame.view.MainView;
 import edu.csc413.tankgame.view.RunGameView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.csc413.tankgame.model.GameState;
+import edu.csc413.tankgame.GameDriver;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import static edu.csc413.tankgame.view.StartMenuView.START_BUTTON_ACTION_COMMAND;
 
@@ -47,24 +54,108 @@ public class GameState {
 
     //if tank takes too much shells from the shells, it should be removed from this list
 
+    GameKeyListener tankMovement = new GameKeyListener();
+
     //Methods for player tank (edited by me)
     //TODO: These , need to set up key listener to do this
     public boolean upPressed() {
-        return true;
+        return movingForward;
     }
 
     public boolean downPressed() {
-        return true;
+        return movingBackward;
     }
 
     public boolean rightPressed() {
-        return true;
+        return turnRight;
     }
 
     public boolean leftPressed() {
-        return true;
+        return turnLeft;
     }
 
+    private static boolean movingForward = false;
+    private static boolean movingBackward = false;
+    private static boolean turnLeft = false;
+    private static boolean turnRight = false;
+
+//    GameKeyListener tankMovement = new GameKeyListener();
+
+    public static class GameKeyListener implements KeyListener {
+
+        //GameState tankMovement = new GameState();
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            if (keyCode == KeyEvent.VK_W) {
+//            System.out.println("w was pressed");
+                movingForward = true;
+            }if (keyCode == KeyEvent.VK_S) {
+//            System.out.println("S was pressed");
+                movingBackward = true;
+            }if (keyCode == KeyEvent.VK_A) {
+//            System.out.println("A was pressed");
+                turnLeft = true;
+            }if (keyCode == KeyEvent.VK_D) {
+//            System.out.println("D was pressed");
+                turnRight = true;
+            } if (keyCode == KeyEvent.VK_SPACE) {
+//            System.out.println("space was pressed");
+            }
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            if (keyCode == KeyEvent.VK_W) {
+//            System.out.println("w was released");
+                movingForward = false;
+            }if (keyCode == KeyEvent.VK_S) {
+//            System.out.println("S was released");
+                movingBackward = false;
+
+            } if (keyCode == KeyEvent.VK_A) {
+//            System.out.println("A was released");
+                turnLeft = false;
+            }if (keyCode == KeyEvent.VK_D) {
+//            System.out.println("D was released");
+                turnRight = false;
+                if (keyCode == KeyEvent.VK_SPACE) {
+//                System.out.println("space was released");
+                }
+            }
+
+        }
+
+    }
+
+
+
+    //Key Listener
+
+//    private static class PrintListener implements ActionListener {
+//
+//        //obersever pattern
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//
+//            String actionCommand = e.getActionCommand();
+//            if (actionCommand.equals(START_BUTTON_ACTION_COMMAND)) {
+//                mainView.setScreen(MainView.Screen.RUN_GAME_SCREEN);
+//                runGame();
+//            } else if (actionCommand.equals(EXIT_BUTTON_ACTION_COMMAND)) {
+//                mainView.closeGame();
+//            }
+//
+//        }
+//    }
 
 
     //--DELETE LATER  (PLacement according to ilearn
