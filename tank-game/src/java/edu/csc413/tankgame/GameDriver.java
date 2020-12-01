@@ -3,6 +3,17 @@ package edu.csc413.tankgame;
 import edu.csc413.tankgame.model.*;
 import edu.csc413.tankgame.view.MainView;
 import edu.csc413.tankgame.view.RunGameView;
+import edu.csc413.tankgame.view.StartMenuView;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyListener;
+
+import java.awt.event.ActionListener;
+
+//These are imported to test , DELETE LATER or after adjustment
+import static edu.csc413.tankgame.view.StartMenuView.EXIT_BUTTON_ACTION_COMMAND;
+import static edu.csc413.tankgame.view.StartMenuView.START_BUTTON_ACTION_COMMAND;
 
 /**
  * GameDriver is the primary controller class for the tank game. The game is launched from GameDriver.main, and
@@ -17,29 +28,55 @@ public class GameDriver {
     private final RunGameView runGameView;
     private final GameState gameState;
 
+
+
     public GameDriver() {
         mainView = new MainView();
         runGameView = mainView.getRunGameView();
         gameState = new GameState();
+
+
+
     }
 
     public void start() {
-        // TODO: Implement.
-        // This should set the MainView's screen to the start menu screen.
-        //Just by implementing this, we can start the menu
+//        // TODO: Implement.
+//        // This should set the MainView's screen to the start menu screen.
+//        //Just by implementing this, we can start the menu
         mainView.setScreen(MainView.Screen.START_MENU_SCREEN);
+//
+//
+//        //From ilearn
+//        // "Not The RIGHT PLACE FOR THIS (This simply skips the start screen
+//        //Lecture 1 , we went over this, now we need to implement remaining method to make work
+//        // Things to work on: Shell, movement methods (keyListeners)
 
-
-        //From ilearn
-        // "Not The RIGHT PLACE FOR THIS
-        mainView.setScreen(MainView.Screen.RUN_GAME_SCREEN);
-
-        //Call this method run game
-        runGame();
 
 
     }
 
+    //Got it working, now I just need to implement it like he wants it to
+    //I am still passing it through the startMenuView class at this point
+    public static class PrintListener implements ActionListener {
+
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+
+            GameDriver mainViewTemp = new GameDriver();
+
+            String actionCommand = event.getActionCommand();
+            if (actionCommand.equals(START_BUTTON_ACTION_COMMAND)) {
+                mainViewTemp.mainView.setScreen(MainView.Screen.RUN_GAME_SCREEN);
+                mainViewTemp.runGame();
+//                System.out.println("Start Button was pressed");
+            } else if (actionCommand.equals(EXIT_BUTTON_ACTION_COMMAND)) {
+                mainViewTemp.mainView.closeGame();
+//                System.out.println("Exit button was pressed");
+            }
+
+        }
+    }
 
     //setting variable for x to be used
     private double x = 200.0;

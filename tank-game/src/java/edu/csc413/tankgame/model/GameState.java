@@ -1,9 +1,14 @@
 package edu.csc413.tankgame.model;
 
+import edu.csc413.tankgame.view.MainView;
 import edu.csc413.tankgame.view.RunGameView;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
+import static edu.csc413.tankgame.view.StartMenuView.START_BUTTON_ACTION_COMMAND;
 
 /**
  * GameState represents the state of the game "world." The GameState object tracks all of the moving entities like tanks
@@ -59,6 +64,27 @@ public class GameState {
     public boolean leftPressed() {
         return true;
     }
+
+
+
+    //--DELETE LATER  (PLacement according to ilearn
+//        private static class PrintListener implements ActionListener {
+//
+//        //obersever pattern
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//
+//            String actionCommand = e.getActionCommand();
+//            if (actionCommand.equals(START_BUTTON_ACTION_COMMAND)) {
+//                mainView.setScreen(MainView.Screen.RUN_GAME_SCREEN);
+//                runGame();
+//            } else if (actionCommand.equals(EXIT_BUTTON_ACTION_COMMAND)) {
+//                mainView.closeGame();
+//            }
+//
+//        }
+//    }
+
 
 
 }

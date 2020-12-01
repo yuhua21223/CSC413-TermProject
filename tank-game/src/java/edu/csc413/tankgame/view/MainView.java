@@ -72,7 +72,7 @@ public class MainView {
         mainJFrame.add(mainPanel);
     }
 
-    //DOn't copy this exactly, and wrong location?
+    //DOn't copy this exactly, and wrong location
     //This basically help us understand key pressed
         //
     private static class PrintListener implements KeyListener {
@@ -92,7 +92,7 @@ public class MainView {
                 System.out.println( " w was pressed");
                 //I would be using Esc button to get out of the game
             } else if (keyCode == KeyEvent.VK_ESCAPE) {
-                System.out.println( " Escape was pressed");
+                System.out.println( "Escape was pressed");
             }
 
         }
@@ -106,11 +106,7 @@ public class MainView {
             } else if (keyCode == KeyEvent.VK_ESCAPE) {
                 System.out.println( " Escape was released");
             }
-
         }
-
-
-
     }
 
     /**

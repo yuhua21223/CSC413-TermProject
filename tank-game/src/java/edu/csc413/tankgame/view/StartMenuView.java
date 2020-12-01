@@ -1,12 +1,17 @@
 package edu.csc413.tankgame.view;
 
+import edu.csc413.tankgame.GameDriver;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import edu.csc413.tankgame.GameDriver.*;
+
 
 /**
  * StartMenuView is the view representing the start menu screen as well as the end menu screen. The two menu screens are
@@ -48,8 +53,16 @@ public class StartMenuView extends JPanel {
         setBackground(Color.BLACK);
         setLayout(null);
 
-        addButton(startButtonText, START_BUTTON_BOUNDS, START_BUTTON_ACTION_COMMAND, null);
-        addButton("Exit", EXIT_BUTTON_BOUNDS, EXIT_BUTTON_ACTION_COMMAND, null);
+//        Example use of lister (Do not use listener object below
+        //PrintListener1  listener1 = new PrintListener1();
+
+        //GameDriver listener = new GameDriver();
+
+        PrintListener listener = new PrintListener();
+
+
+        addButton(startButtonText, START_BUTTON_BOUNDS, START_BUTTON_ACTION_COMMAND, listener);
+        addButton("Exit", EXIT_BUTTON_BOUNDS, EXIT_BUTTON_ACTION_COMMAND, listener);
     }
 
     private void addButton(
@@ -67,4 +80,28 @@ public class StartMenuView extends JPanel {
     public void paintComponent(Graphics g) {
         g.drawImage(menuBackground, 0, 0, null);
     }
+
+
+    //This is the start menu class and should not be in control of of the exit menu,
+    // Thus it should not be placed here
+
+    //Example of how actionListener works
+//    private static class PrintListener1 implements ActionListener {
+//
+//        //obersever pattern
+//        @Override
+//        public void actionPerformed(ActionEvent event) {
+//            String actionCommand = event.getActionCommand();
+//            if (actionCommand.equals(START_BUTTON_ACTION_COMMAND)) {
+//                mainView.setScreen(MainView.Screen.RUN_GAME_SCREEN);
+//                runGame();
+//                System.out.println("Start Button was pressed");
+//            } else if (actionCommand.equals(EXIT_BUTTON_ACTION_COMMAND)) {
+//                mainView.closeGame();
+//                System.out.println("Exit button was pressed");
+//            }
+//
+//        }
+//    }
+
 }

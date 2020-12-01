@@ -13,15 +13,22 @@ public class PlayerTank extends Tank{
         //The methods need to be implemented for this to work
         //Method located in GameState.java
 
-        if(gameState.upPressed()){
-            moveForward();
-        }else if( gameState.downPressed()){
-            moveBackward();
-        }else if (gameState.rightPressed()){
-            turnRight();
-        }else if (gameState.leftPressed()) {
-            turnLeft();
-        }else  doNothing();
+
+
+
+//        if(gameState.upPressed()){
+//            moveForward();
+//            doNothing();
+//        }else if( gameState.downPressed()){
+//            moveBackward();
+//            doNothing();
+//        }else if (gameState.rightPressed()){
+//            turnRight();
+//            doNothing();
+//        }else if (gameState.leftPressed()) {
+//            turnLeft();
+//            doNothing();
+//        }else  doNothing();
 
     }
 
