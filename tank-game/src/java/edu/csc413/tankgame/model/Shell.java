@@ -46,4 +46,12 @@ public class Shell extends Entity{
     private static String getUniqueId() {
         return SHELL_ID_PREFIX + uniqueId++;
     }
+
+    //To position and dimensions of the boxCollider
+    public void setBoxCollider(int x, int y, int w, int h){
+//        this.boxCollider.x = this.xPos + x;
+//        this.boxCollider.y = this.yPos + y;
+//        this.boxCollider.width = w;
+//        this.boxCollider.height = h;
+    }
 }

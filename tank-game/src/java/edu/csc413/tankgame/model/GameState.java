@@ -79,7 +79,7 @@ public class GameState {
     private static boolean movingBackward = false;
     private static boolean turnLeft = false;
     private static boolean turnRight = false;
-    
+
 
     public static class GameKeyListener implements KeyListener {
 
