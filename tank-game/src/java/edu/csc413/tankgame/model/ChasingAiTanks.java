@@ -1,7 +1,7 @@
 package edu.csc413.tankgame.model;
 
-public class DumbAiTanks extends Tank {
-    public DumbAiTanks(String id, double x, double y, double angle) {
+public class ChasingAiTanks extends Tank {
+    public ChasingAiTanks(String id, double x, double y, double angle) {
         super(id, x, y, angle);
     }
 

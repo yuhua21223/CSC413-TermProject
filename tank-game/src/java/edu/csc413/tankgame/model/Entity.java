@@ -62,9 +62,9 @@ public abstract class Entity {
     //These abstract method needs to be overwritten
     //These are need to be implemented in other classes ( @Override)
     //These are to define themselve with unique attributes in child class
-//    public abstract double getXBound();
-//
-//    public abstract double getYBound();
+    public abstract double getXBound();
+
+    public abstract double getYBound();
 
 
 //    //Because Shell, Tank and Wall extends Entity, they will inherit over this method use

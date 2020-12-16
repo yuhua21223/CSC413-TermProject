@@ -34,15 +34,15 @@ public abstract class Tank extends Entity {
 
 
 
-//    @Override
-//    public double getXBound() {
-//        return getX() + 55.0;
-//    }
-//
-//    @Override
-//    public double getYBound() {
-//        return getY() + 55.0;
-//    }
+    @Override
+    public double getXBound() {
+        return getX() + 55.0;
+    }
+
+    @Override
+    public double getYBound() {
+        return getY() + 55.0;
+    }
 
 
 

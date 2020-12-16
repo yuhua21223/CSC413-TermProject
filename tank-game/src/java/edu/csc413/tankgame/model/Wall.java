@@ -15,15 +15,15 @@ public class Wall extends Entity {
 
     }
 
-//    @Override
-//    public double getXBound() {
-//        return getX() + 32.0;
-//    }
-//
-//    @Override
-//    public double getYBound() {
-//        return getY() + 32.0;
-//    }
+    @Override
+    public double getXBound() {
+        return getX() + 32.0;
+    }
+
+    @Override
+    public double getYBound() {
+        return getY() + 32.0;
+    }
 
 //    //Pretty sure ID is not needed for now
 //    private static String getUniqueId() {

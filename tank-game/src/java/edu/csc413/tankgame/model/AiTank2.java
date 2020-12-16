@@ -21,7 +21,7 @@ public class AiTank2  extends Tank{
         if (counter == 50) {
             shoot(gameState);
         }counter --;
-       
+
 
 
         //Entity playerTank = gamestate.getEntities().getEnt(GameState.PLAYER_TANK_ID);

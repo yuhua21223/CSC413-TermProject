@@ -40,15 +40,15 @@ public class Shell extends Entity{
 
     //Shells aren't smart and simply move forward
     //Thus will be Overriding the move method
-//    @Override
-//    public double getXBound() {
-//        return getX() + 24.0;
-//    }
-//
-//    @Override
-//    public double getYBound() {
-//        return getY() + 24.0;
-//    }
+    @Override
+    public double getXBound() {
+        return getX() + 24.0;
+    }
+
+    @Override
+    public double getYBound() {
+        return getY() + 24.0;
+    }
 
 
 

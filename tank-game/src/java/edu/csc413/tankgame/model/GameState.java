@@ -105,8 +105,14 @@ public class GameState {
         return OOBShellList;
     }
 
-
-    public boolean OOBShell( Shell shell) {
+//Objective: Remove all shells that reach out of bounds
+//    public boolean OOBShell( Shell shell) {
+//        return shell.getX() < SHELL_X_LOWER_BOUND
+//                || shell.getX() > SHELL_X_UPPER_BOUND
+//                || shell.getY() < SHELL_Y_LOWER_BOUND
+//                || shell.getY() > SHELL_Y_UPPER_BOUND;
+//    }
+public boolean OOBShell( Shell shell) {
         return shell.getX() < SHELL_X_LOWER_BOUND
                 || shell.getX() > SHELL_X_UPPER_BOUND
                 || shell.getY() < SHELL_Y_LOWER_BOUND
@@ -115,16 +121,15 @@ public class GameState {
 
 
 
-
         //Because Shell, Tank and Wall extends Entity, they will inherit over this method use
         //This is called when object is created
         //Entity being the super class and extended are the subclass
-//    public boolean entitiesOverlap(Entity entity1, Entity entity2) {
-//        return entity1.getX() < entity2.getXBound()
-//                && entity1.getXBound() > entity2.getX()
-//                && entity1.getY() < entity2.getYBound()
-//                && entity1.getYBound() > entity2.getY();
-//    } //Will return true if any of the following
+    public boolean entitiesOverlap(Entity entity1, Entity entity2) {
+        return entity1.getX() < entity2.getXBound()
+                && entity1.getXBound() > entity2.getX()
+                && entity1.getY() < entity2.getYBound()
+                && entity1.getYBound() > entity2.getY();
+    } //Will return true if any of the following
 
 
 
