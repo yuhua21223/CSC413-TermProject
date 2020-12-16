@@ -1,5 +1,9 @@
 package edu.csc413.tankgame.model;
 
+import edu.csc413.tankgame.model.GameState;
+
+import java.util.Iterator;
+
 /**
  * Model class representing a shell that has been fired by a tank. A shell has a position and an angle, as well as a
  * speed. Shells by default should be unable to turn and only move forward.
@@ -19,39 +23,38 @@ public class Shell extends Entity{
 
     private static long uniqueId = 0L;
 
-    //These won't be needed because Shell will be inheriting from Entity of these properties
-//    private final String id;
-//    private double x;
-//    private double y;
-//    private double angle;
+
 
     public Shell(double x, double y, double angle) {
 
         super(getUniqueId(),x, y, angle);
 
-//        this.id = getUniqueId(); //generates its own Unique ID
-//        this.x = x;
-//        this.y = y;
-//        this.angle = angle;
+
     }
 
-    //Shells aren't smart and simply move forward
-    //Thus will be Overriding the move method
     @Override
     public void move(GameState gameState) {
         moveForward();
     }
 
 
+    //Shells aren't smart and simply move forward
+    //Thus will be Overriding the move method
+//    @Override
+//    public double getXBound() {
+//        return getX() + 24.0;
+//    }
+//
+//    @Override
+//    public double getYBound() {
+//        return getY() + 24.0;
+//    }
+
+
+
     private static String getUniqueId() {
         return SHELL_ID_PREFIX + uniqueId++;
     }
 
-    //To position and dimensions of the boxCollider
-    public void setBoxCollider(int x, int y, int w, int h){
-//        this.boxCollider.x = this.xPos + x;
-//        this.boxCollider.y = this.yPos + y;
-//        this.boxCollider.width = w;
-//        this.boxCollider.height = h;
-    }
+
 }

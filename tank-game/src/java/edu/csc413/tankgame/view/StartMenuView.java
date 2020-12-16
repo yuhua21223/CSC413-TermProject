@@ -53,11 +53,6 @@ public class StartMenuView extends JPanel {
         setBackground(Color.BLACK);
         setLayout(null);
 
-//        Example use of lister (Do not use listener object below
-        //PrintListener1  listener1 = new PrintListener1();
-
-        //GameDriver listener = new GameDriver();
-
         PrintListener listener = new PrintListener();
 
 
@@ -82,26 +77,5 @@ public class StartMenuView extends JPanel {
     }
 
 
-    //This is the start menu class and should not be in control of of the exit menu,
-    // Thus it should not be placed here
-
-    //Example of how actionListener works
-//    private static class PrintListener1 implements ActionListener {
-//
-//        //obersever pattern
-//        @Override
-//        public void actionPerformed(ActionEvent event) {
-//            String actionCommand = event.getActionCommand();
-//            if (actionCommand.equals(START_BUTTON_ACTION_COMMAND)) {
-//                mainView.setScreen(MainView.Screen.RUN_GAME_SCREEN);
-//                runGame();
-//                System.out.println("Start Button was pressed");
-//            } else if (actionCommand.equals(EXIT_BUTTON_ACTION_COMMAND)) {
-//                mainView.closeGame();
-//                System.out.println("Exit button was pressed");
-//            }
-//
-//        }
-//    }
 
 }

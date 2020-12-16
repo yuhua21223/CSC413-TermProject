@@ -10,8 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyListener;
 
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 
 //These are imported to test , DELETE LATER or after adjustment
+import static edu.csc413.tankgame.model.GameState.*;
 import static edu.csc413.tankgame.view.StartMenuView.EXIT_BUTTON_ACTION_COMMAND;
 import static edu.csc413.tankgame.view.StartMenuView.START_BUTTON_ACTION_COMMAND;
 
@@ -44,12 +46,6 @@ public class GameDriver {
 //        // This should set the MainView's screen to the start menu screen.
 //        //Just by implementing this, we can start the menu
         mainView.setScreen(MainView.Screen.START_MENU_SCREEN);
-//
-//
-//        //From ilearn
-//        // "Not The RIGHT PLACE FOR THIS (This simply skips the start screen
-//        //Lecture 1 , we went over this, now we need to implement remaining method to make work
-//        // Things to work on: Shell, movement methods (keyListeners)
 
 
 
@@ -69,10 +65,8 @@ public class GameDriver {
             if (actionCommand.equals(START_BUTTON_ACTION_COMMAND)) {
                 mainViewTemp.mainView.setScreen(MainView.Screen.RUN_GAME_SCREEN);
                 mainViewTemp.runGame();
-//                System.out.println("Start Button was pressed");
             } else if (actionCommand.equals(EXIT_BUTTON_ACTION_COMMAND)) {
                 mainViewTemp.mainView.closeGame();
-//                System.out.println("Exit button was pressed");
             }
 
         }
@@ -99,9 +93,23 @@ public class GameDriver {
                 );
 
 
+        //Adding my third tank
+        Tank aiTank2 =
+                new AiTank2(GameState.AI_TANK_2_ID,
+                        RunGameView.AI_TANK_2_INITIAL_X,
+                        RunGameView.AI_TANK_2_INITIAL_Y,
+                        RunGameView.AI_TANK_2_INITIAL_ANGLE);
+
+
+
+
+
+
 
         gameState.addEntity(playerTank);
         gameState.addEntity(aiTank);
+        gameState.addEntity(aiTank2);
+
 
         //This helps us draw images on the screen
         runGameView.addDrawableEntity(
@@ -118,6 +126,19 @@ public class GameDriver {
                 aiTank.getY(),
                 aiTank.getAngle()
         );
+
+        runGameView.addDrawableEntity(
+                GameState.AI_TANK_2_ID,
+                RunGameView.AI_TANK_2_IMAGE_FILE,
+                aiTank.getX(),
+                aiTank.getY(),
+                aiTank.getAngle()
+        );
+
+
+
+
+
 
 
         Runnable gameRunner = () -> {
@@ -139,26 +160,83 @@ public class GameDriver {
     // should be updated accordingly. It should return true as long as the game continues.
     private boolean update() {
 
-        //we need a way to represent the tank changing location in different point of  time
 
-        //objective
-        //Ask all tanks,shells, etc. to move
+        //Boundary for Shell
+//        for (Iterator<Shell> iter = gameState.getOOBShellList().iterator(); iter.hasNext(); ) {
+//            Shell shell = iter.next();
+//            if (gameState.OOBShell(shell)) {
+//                iter.remove();
+//            }
+//        }
 
-        //Ask all tanks, shells, etc. to check bounds
-            //If shells goes off bound, it should be removed,
-                // else if game goes on the shells will take up too much memory
+//        for (Shell shell: gameState.getOOBShellList()) {
+//            if (gameState.OOBShell(shell)) {
+//                runGameView.removeDrawableEntity(shell.getId());
+//            }
+////            if (gameState.entitiesOverlap(shell,shell)) {
+////                runGameView.removeDrawableEntity(shell.getId());
+////            }
+//        }
+
+
 
         // Check collisions
+        // Ask gameState -- any new shells to draw?
+        //if so then call addDrawableEntity (
+
+
+
+
 
         // Ask gameState -- any new shells to remove?
             //if so then call removeDrawableEntity (
         for (Entity entity: gameState.getEntities()) {
-            entity.move(gameState);
+            entity.move(gameState); //
         }
         //For everything in the game that is drawn
         for(Entity entity: gameState.getEntities() ) {
-            runGameView.setDrawableEntityLocationAndAngle(entity.getId(), entity.getX(), entity.getY(), entity.getAngle());
+            runGameView.setDrawableEntityLocationAndAngle(
+                    entity.getId(), entity.getX(), entity.getY(), entity.getAngle());
         }
+
+        //Traverse the List of tempShells
+        for(Entity shell: gameState.getShells()) {
+            //The for each loop
+            //gameState.getShells() is the the list that return a shell String
+
+            gameState.addEntity(shell);
+            //The addEntity from gameState class will take add shell to list
+            // The .add() method will do that
+
+            runGameView.addDrawableEntity(
+                    shell.getId(), //returns String
+                    runGameView.SHELL_IMAGE_FILE, //returns String
+                    shell.getX(),
+                    shell.getY(),
+                    shell.getAngle()
+                    //gameState.removeTempShells() //Not needed
+            );
+        }
+
+        gameState.getShells().clear();
+
+
+        //adding walls
+        for( WallImageInfo wall: WallImageInfo.readWalls()) {
+            gameState.addEntity(
+                    new Wall(
+                            wall.getX() + "," + wall.getY(),
+                            wall.getX(), wall.getY(), 0));
+
+            runGameView.addDrawableEntity(
+                    wall.getX() + "," + wall.getY(),
+                    wall.getImageFile(),
+                    wall.getX(),
+                    wall.getY(),
+                    0
+            );
+        }
+
 
         return true;
 

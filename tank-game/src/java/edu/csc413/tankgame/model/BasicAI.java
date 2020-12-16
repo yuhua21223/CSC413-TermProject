@@ -8,6 +8,7 @@ public class BasicAI extends Tank {
     @Override
     public void move(GameState gameState) {
 
+        //Does nothing
 
     }
 }
