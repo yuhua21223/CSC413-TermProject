@@ -10,10 +10,12 @@ public class PlayerTank extends Tank {
         super(id, x, y, angle);
     }
 
-    int counter = 30;
+    int counter = 200;
 
     @Override
     public void move(GameState gameState) {
+
+
 
         Entity playerTank = gameState.getEntity(GameState.PLAYER_TANK_ID);
         if(playerTank.getX() < TANK_X_LOWER_BOUND )
@@ -31,6 +33,7 @@ public class PlayerTank extends Tank {
         if(playerTank.getY() > TANK_Y_UPPER_BOUND){
             playerTank.setY(TANK_Y_UPPER_BOUND);
         }
+
 
 //        //A tank colliding with a tank
 //        private boolean entitiesOverlap(Entity entity1, Entity entity2) {
@@ -65,9 +68,9 @@ public class PlayerTank extends Tank {
 
 
             if(counter == 0) {
-                counter = 30;
+                counter = 200;
             }
-            if (counter == 30) {
+            if (counter == 1) {
                 shoot(gameState);
             }counter --;
 

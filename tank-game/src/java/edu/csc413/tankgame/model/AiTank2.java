@@ -11,14 +11,14 @@ public class AiTank2  extends Tank{
 
     }
 
-    int counter = 100;
+    int counter = 200;
     @Override
     public void move(GameState gameState) {
 
         if(counter == 0) {
-            counter = 100;
+            counter = 200;
         }
-        if (counter == 50) {
+        if (counter == 1) {
             shoot(gameState);
         }counter --;
 

@@ -101,6 +101,8 @@ public class GameState {
     //This part will help remove shells that are out of bounds
     public final List<Shell> OOBShellList = new ArrayList<>();
 
+
+    //TODO: this may need to actually access TempShells and take out all those shells
     public List<Shell> getOOBShellList(){
         return OOBShellList;
     }

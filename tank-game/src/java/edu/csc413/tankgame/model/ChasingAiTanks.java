@@ -1,5 +1,8 @@
 package edu.csc413.tankgame.model;
 
+import static edu.csc413.tankgame.model.GameState.*;
+import static edu.csc413.tankgame.model.GameState.TANK_Y_UPPER_BOUND;
+
 public class ChasingAiTanks extends Tank {
     public ChasingAiTanks(String id, double x, double y, double angle) {
         super(id, x, y, angle);
@@ -9,20 +12,35 @@ public class ChasingAiTanks extends Tank {
 
     //we will pass everything to DumbAI
     //This is defining things unique to this AI
-    int counter = 100;
+    int counter = 200;
 
     @Override
     public void move(GameState gameState) {
 
 
-        if (counter == 0) {
-            counter = 100;
+        if(counter == 0) {
+            counter = 200;
         }
-        if (counter == 50) {
+        if (counter == 1) {
             shoot(gameState);
-        }
-        counter--;
+        }counter --;
 
+        Entity AITank = gameState.getEntity(AI_TANK_ID);
+        if(AITank.getX() < TANK_X_LOWER_BOUND )
+        {
+            //How to set position of tank ?
+            AITank.setX(TANK_X_LOWER_BOUND);
+
+        }
+        if(AITank.getX() > TANK_X_UPPER_BOUND) {
+            AITank.setX(TANK_X_UPPER_BOUND);
+        }
+        if(AITank.getY() < TANK_Y_LOWER_BOUND) {
+            AITank.setY(TANK_Y_LOWER_BOUND);
+        }
+        if(AITank.getY() > TANK_Y_UPPER_BOUND){
+            AITank.setY(TANK_Y_UPPER_BOUND);
+        }
 
 
 

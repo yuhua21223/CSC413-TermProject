@@ -179,38 +179,48 @@ public class GameDriver {
             entity.move(gameState);
             runGameView.setDrawableEntityLocationAndAngle(
                     entity.getId(), entity.getX(), entity.getY(), entity.getAngle());
+
+//            runGameView.addDrawableEntity(
+//                    entity.getId(), //returns String
+//                    runGameView.SHELL_IMAGE_FILE, //returns String
+//                    entity.getX(),
+//                    entity.getY(),
+//                    entity.getAngle()
+                    //gameState.removeTempShells() //Not needed
+            //);
         }
 
         //TODO: Game is slowing down because entities are being created in for loop
         //
 
         //Traverse the List of tempShells
-        for(Entity shell: gameState.getShells()) {
+        for(Entity tempShell: gameState.getShells()) {
             //The for each loop
             //gameState.getShells() is the the list that return a shell String
 
-            gameState.addEntity(shell);
+            gameState.addEntity(tempShell);
             //The addEntity from gameState class will take add shell to list
             // The .add() method will do that
 
             runGameView.addDrawableEntity(
-                    shell.getId(), //returns String
+                    tempShell.getId(), //returns String
                     runGameView.SHELL_IMAGE_FILE, //returns String
-                    shell.getX(),
-                    shell.getY(),
-                    shell.getAngle()
-                    //gameState.removeTempShells() //Not needed
+                    tempShell.getX(),
+                    tempShell.getY(),
+                    tempShell.getAngle()
             );
+
         }
 
+        //This slowed the bullets down
         gameState.getShells().clear();
         //gameState.getEntities().clear(); //This will clear the tanks lol
 
 
         //  Boundary for Shell - shells  removed if reached that point
         for (Iterator<Shell> iter = gameState.getOOBShellList().iterator(); iter.hasNext(); ) {
-            Shell shell = iter.next();
-            if (gameState.OOBShell(shell)) {
+            Shell oobShells = iter.next();
+            if (gameState.OOBShell(oobShells)) {
                 iter.remove();
             }
         }
@@ -225,7 +235,7 @@ public class GameDriver {
         }
 
 
-//
+// Shell removal for Entity
 //        for (Iterator<Entity> iter = gameState.getShells().iterator(); iter.hasNext(); ) {
 //            Entity shell = iter.next();
 //            if (gameState.OOBShell(shell)) {
@@ -244,22 +254,6 @@ public class GameDriver {
 //        }
 
 
-
-        //adding walls
-        for( WallImageInfo wall: WallImageInfo.readWalls()) {
-            gameState.addEntity(
-                    new Wall(
-                            wall.getX() + "," + wall.getY(),
-                            wall.getX(), wall.getY(), 0));
-
-            runGameView.addDrawableEntity(
-                    wall.getX() + "," + wall.getY(),
-                    wall.getImageFile(),
-                    wall.getX(),
-                    wall.getY(),
-                    0
-            );
-        }
 
 
         return true;
