@@ -148,6 +148,7 @@ public class GameDriver {
     // TODO: Implement.
     // update should handle one frame of gameplay. All tanks and shells move one step, and all drawn entities
     // should be updated accordingly. It should return true as long as the game continues.
+    int shellIndex = 0;
     private boolean update() {
 
 
@@ -207,6 +208,24 @@ public class GameDriver {
 
         }
 
+        for (shellIndex = 0; shellIndex<gameState.getOOBShellList().size()-1;shellIndex ++ ){
+            Entity shell1 = gameState.getOOBShellList().get(shellIndex);
+            Entity shell2 = gameState.getOOBShellList().get(shellIndex+1);
+            if(gameState.entitiesOverlap(shell1,shell2)){
+                //gameState.shellCollision();
+                System.out.println("Shells has collided");
+            }
+        }
+
+
+        for (shellIndex = 0; shellIndex<gameState.getShells().size()-1;shellIndex ++ ){
+            Entity shell1 = gameState.getShells().get(shellIndex);
+            Entity shell2 = gameState.getShells().get(shellIndex+1);
+            if(gameState.entitiesOverlap(shell1,shell2)){
+                //gameState.shellCollision();
+                System.out.println("Shells has collided");
+            }
+        }
 
 
         //This slowed the bullets down
@@ -217,20 +236,45 @@ public class GameDriver {
         //  Boundary for Shell - shells  removed if reached that point
         for (Iterator<Shell> iter = gameState.getOOBShellList().iterator(); iter.hasNext(); ) {
             Shell oobShells = iter.next();
+
             if (gameState.OOBShell(oobShells)) {
                 iter.remove();
             }
+//            if(gameState.entitiesOverlap(oobShells,oobShells2)){
+//                //gameState.shellCollision();
+//                System.out.println("Shells has collided");
+//            }
         }
 
         for (Shell shell: gameState.getOOBShellList()) {
             if (gameState.OOBShell(shell)) {
                 runGameView.removeDrawableEntity(shell.getId());
             }
-//            if (gameState.entitiesOverlap(shell,shell)) {
-//                runGameView.removeDrawableEntity(shell.getId());
-//            }
         }
 
+        //I need to loop through the list of Shells list
+        //Create seperate Entity1 and Entity2 for bullet i and i+1
+
+        //Check if entitiesOverlap ( Entity1 , Entity)
+        //
+
+//        //This would check if tanks overlap,
+//        for (shellIndex = 0; shellIndex<gameState.getEntities().size()-1;shellIndex ++ ){
+//            Entity shell1 = gameState.getEntities().get(shellIndex);
+//            Entity shell2 = gameState.getEntities().get(shellIndex+1);
+//            if(gameState.entitiesOverlap(shell1,shell2)){
+//                //gameState.shellCollision();
+//                System.out.println("Tanks has collided");
+//            }
+//        }
+
+
+
+//        for(Entity entity: gameState.getShells()){
+//                    if (gameState.entitiesOverlap(entity,entity)) {
+//            runGameView.removeDrawableEntity(entity.getId());
+//        }
+//        }
 
 
         return true;

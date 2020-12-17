@@ -85,15 +85,28 @@ public class GameState {
 
     //This portion is for Shell ====================================================================
 
-    //We create a Temporary List to store shells
+//    We create a Temporary List to store shells
     public final List<Entity> TempShells = new ArrayList<>();
 
     //Method returns a List with < Entity datatypes > to foreach loop in Gamedrive.update()
     //This is a getter
+//    public List<Entity> getShells(){
+//
+//        return TempShells;
+//    }
+
+
     public List<Entity> getShells(){
 
         return TempShells;
     }
+
+//    public Shell getShellsWithID(String id){
+//        Shell temp = null;
+//        for (Shell shell: TempShells) {
+//
+//        }
+//    }
 
 
 
@@ -103,6 +116,7 @@ public class GameState {
 
 
     //TODO: this may need to actually access TempShells and take out all those shells
+
     public List<Shell> getOOBShellList(){
         return OOBShellList;
     }
@@ -114,6 +128,7 @@ public class GameState {
 //                || shell.getY() < SHELL_Y_LOWER_BOUND
 //                || shell.getY() > SHELL_Y_UPPER_BOUND;
 //    }
+
 public boolean OOBShell( Shell shell) {
         return shell.getX() < SHELL_X_LOWER_BOUND
                 || shell.getX() > SHELL_X_UPPER_BOUND
@@ -132,6 +147,13 @@ public boolean OOBShell( Shell shell) {
                 && entity1.getY() < entity2.getYBound()
                 && entity1.getYBound() > entity2.getY();
     } //Will return true if any of the following
+
+
+    //Method for if Collision happen for shell
+    //Remove both entities (How? )
+    public void shellCollision(){
+        TempShells.clear();
+    }
 
 
 
