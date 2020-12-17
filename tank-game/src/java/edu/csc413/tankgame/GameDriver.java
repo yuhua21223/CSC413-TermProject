@@ -131,12 +131,6 @@ public class GameDriver {
                 aiTank.getAngle()
         );
 
-
-
-
-
-
-
         Runnable gameRunner = () -> {
             while (update()) {
                 runGameView.repaint();
@@ -157,6 +151,15 @@ public class GameDriver {
     private boolean update() {
 
 
+        //Adding Wall (I don't get errors when I put wall here
+        for(WallImageInfo addWall: WallImageInfo.readWalls()){
+            gameState.addEntity(
+                    new Wall(addWall.getX()+ "," +addWall.getY(), addWall.getX(),addWall.getY(),
+                            0));
+            runGameView.addDrawableEntity(
+                    addWall.getX()+","+addWall.getY(), addWall.getImageFile(), addWall.getX(),
+                    addWall.getY(), 0);
+        }
 
 
 
@@ -180,14 +183,6 @@ public class GameDriver {
             runGameView.setDrawableEntityLocationAndAngle(
                     entity.getId(), entity.getX(), entity.getY(), entity.getAngle());
 
-//            runGameView.addDrawableEntity(
-//                    entity.getId(), //returns String
-//                    runGameView.SHELL_IMAGE_FILE, //returns String
-//                    entity.getX(),
-//                    entity.getY(),
-//                    entity.getAngle()
-                    //gameState.removeTempShells() //Not needed
-            //);
         }
 
         //TODO: Game is slowing down because entities are being created in for loop
@@ -212,6 +207,8 @@ public class GameDriver {
 
         }
 
+
+
         //This slowed the bullets down
         gameState.getShells().clear();
         //gameState.getEntities().clear(); //This will clear the tanks lol
@@ -233,26 +230,6 @@ public class GameDriver {
 //                runGameView.removeDrawableEntity(shell.getId());
 //            }
         }
-
-
-// Shell removal for Entity
-//        for (Iterator<Entity> iter = gameState.getShells().iterator(); iter.hasNext(); ) {
-//            Entity shell = iter.next();
-//            if (gameState.OOBShell(shell)) {
-//                iter.remove();
-//                runGameView.removeDrawableEntity(shell.getId());
-//            }
-//        }
-
-//        for (Entity shell: gameState.getShells()) {
-//            if (gameState.OOBShell(shell)) {
-//                runGameView.removeDrawableEntity(shell.getId());
-//            }
-////            if (gameState.entitiesOverlap(shell,shell)) {
-////                runGameView.removeDrawableEntity(shell.getId());
-////            }
-//        }
-
 
 
 

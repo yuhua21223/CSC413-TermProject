@@ -10,7 +10,7 @@ public class PlayerTank extends Tank {
         super(id, x, y, angle);
     }
 
-    int counter = 200;
+    int counter = 100;
 
     @Override
     public void move(GameState gameState) {
@@ -68,9 +68,9 @@ public class PlayerTank extends Tank {
 
 
             if(counter == 0) {
-                counter = 200;
+                counter = 100;
             }
-            if (counter == 1) {
+            if (counter == 100) {
                 shoot(gameState);
             }counter --;
 
