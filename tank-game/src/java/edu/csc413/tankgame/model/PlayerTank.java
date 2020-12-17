@@ -20,7 +20,6 @@ public class PlayerTank extends Tank {
         Entity playerTank = gameState.getEntity(GameState.PLAYER_TANK_ID);
         if(playerTank.getX() < TANK_X_LOWER_BOUND )
         {
-            //How to set position of tank ?
             playerTank.setX(TANK_X_LOWER_BOUND);
 
         }

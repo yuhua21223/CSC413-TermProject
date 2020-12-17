@@ -83,57 +83,46 @@ public class GameState {
 
     }
 
+
     //This portion is for Shell ====================================================================
 
 //    We create a Temporary List to store shells
-    public final List<Entity> TempShells = new ArrayList<>();
-
-    //Method returns a List with < Entity datatypes > to foreach loop in Gamedrive.update()
-    //This is a getter
-//    public List<Entity> getShells(){
-//
-//        return TempShells;
-//    }
+    public final List<Shell> ShellList = new ArrayList<>();
 
 
-    public List<Entity> getShells(){
+    public List<Shell> getShellList(){
 
-        return TempShells;
+        return ShellList;
     }
 
-//    public Shell getShellsWithID(String id){
+//    public Shell getShell(){
 //        Shell temp = null;
-//        for (Shell shell: TempShells) {
-//
+//        for (Shell shell: TempShellsList) {
+//                temp=shell;
 //        }
+//        return temp;
 //    }
 
 
 
-
+    //TODO: I don't think I need  seperate list for OOBShellList
     //This part will help remove shells that are out of bounds
-    public final List<Shell> OOBShellList = new ArrayList<>();
+//    public final List<Shell> OOBShellList = new ArrayList<>();
+//
+//
+//
+//    public List<Shell> getOOBShellList(){
+//        return OOBShellList;
+//    }
 
 
-    //TODO: this may need to actually access TempShells and take out all those shells
-
-    public List<Shell> getOOBShellList(){
-        return OOBShellList;
-    }
 
 //Objective: Remove all shells that reach out of bounds
-//    public boolean OOBShell( Shell shell) {
-//        return shell.getX() < SHELL_X_LOWER_BOUND
-//                || shell.getX() > SHELL_X_UPPER_BOUND
-//                || shell.getY() < SHELL_Y_LOWER_BOUND
-//                || shell.getY() > SHELL_Y_UPPER_BOUND;
-//    }
-
 public boolean OOBShell( Shell shell) {
-        return shell.getX() < SHELL_X_LOWER_BOUND
-                || shell.getX() > SHELL_X_UPPER_BOUND
-                || shell.getY() < SHELL_Y_LOWER_BOUND
-                || shell.getY() > SHELL_Y_UPPER_BOUND;
+        return !(shell.getX() >= SHELL_X_LOWER_BOUND
+                && shell.getX() <= SHELL_X_UPPER_BOUND
+                && shell.getY() >= SHELL_Y_LOWER_BOUND
+                && shell.getY() <= SHELL_Y_UPPER_BOUND);
     }
 
 
@@ -152,7 +141,7 @@ public boolean OOBShell( Shell shell) {
     //Method for if Collision happen for shell
     //Remove both entities (How? )
     public void shellCollision(){
-        TempShells.clear();
+        ShellList.clear();
     }
 
 

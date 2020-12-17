@@ -54,6 +54,7 @@ public abstract class Entity {
 
     public abstract void move(GameState gameState);
 
+//    public void move(GameState gameState) {}
 
     //Have bounds as abstract in Entity
     //then define it in seperate child class, shell,wall, tank

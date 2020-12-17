@@ -28,7 +28,7 @@ public abstract class Tank extends Entity {
         //
 
         Shell shellCreated = new Shell(getShellX(),getShellY(),getAngle());
-        gameState.TempShells.add(shellCreated);
+        gameState.ShellList.add(shellCreated);
     }
 
 

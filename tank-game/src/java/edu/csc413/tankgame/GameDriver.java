@@ -27,12 +27,10 @@ public class GameDriver {
     private final GameState gameState;
 
 
-
     public GameDriver() {
         mainView = new MainView();
         runGameView = mainView.getRunGameView();
         gameState = new GameState();
-
 
 
     }
@@ -42,7 +40,6 @@ public class GameDriver {
 //        // This should set the MainView's screen to the start menu screen.
 //        //Just by implementing this, we can start the menu
         mainView.setScreen(MainView.Screen.START_MENU_SCREEN);
-
 
 
     }
@@ -97,11 +94,6 @@ public class GameDriver {
                         RunGameView.AI_TANK_2_INITIAL_ANGLE);
 
 
-
-
-
-
-
         gameState.addEntity(playerTank);
         gameState.addEntity(aiTank);
         gameState.addEntity(aiTank2);
@@ -149,20 +141,19 @@ public class GameDriver {
     // update should handle one frame of gameplay. All tanks and shells move one step, and all drawn entities
     // should be updated accordingly. It should return true as long as the game continues.
     int shellIndex = 0;
+
     private boolean update() {
 
 
         //Adding Wall (I don't get errors when I put wall here
-        for(WallImageInfo addWall: WallImageInfo.readWalls()){
+        for (WallImageInfo addWall : WallImageInfo.readWalls()) {
             gameState.addEntity(
-                    new Wall(addWall.getX()+ "," +addWall.getY(), addWall.getX(),addWall.getY(),
+                    new Wall(addWall.getX() + "," + addWall.getY(), addWall.getX(), addWall.getY(),
                             0));
             runGameView.addDrawableEntity(
-                    addWall.getX()+","+addWall.getY(), addWall.getImageFile(), addWall.getX(),
+                    addWall.getX() + "," + addWall.getY(), addWall.getImageFile(), addWall.getX(),
                     addWall.getY(), 0);
         }
-
-
 
 
         // Check collisions
@@ -170,16 +161,14 @@ public class GameDriver {
         //if so then call addDrawableEntity (
 
 
-
-
         //TODO: Check as well, prob from over here
         // Ask gameState -- any new shells to remove?
-            //if so then call removeDrawableEntity (
+        //if so then call removeDrawableEntity (
 //        for (Entity entity: gameState.getEntities()) {
 //            entity.move(gameState); //
 //        }
         //For everything in the game that is drawn
-        for(Entity entity: gameState.getEntities() ) {
+        for (Entity entity : gameState.getEntities()) {
             entity.move(gameState);
             runGameView.setDrawableEntityLocationAndAngle(
                     entity.getId(), entity.getX(), entity.getY(), entity.getAngle());
@@ -190,7 +179,7 @@ public class GameDriver {
         //
 
         //Traverse the List of tempShells
-        for(Entity tempShell: gameState.getShells()) {
+        for (Entity tempShell : gameState.getShellList()) {
             //The for each loop
             //gameState.getShells() is the the list that return a shell String
 
@@ -208,9 +197,14 @@ public class GameDriver {
 
         }
 
-        for (shellIndex = 0; shellIndex<gameState.getOOBShellList().size()-1;shellIndex ++ ){
-            Entity shell1 = gameState.getOOBShellList().get(shellIndex);
-            Entity shell2 = gameState.getOOBShellList().get(shellIndex+1);
+
+        // Won't be worrying about this efficiecy thing until I get collision detection for shells
+
+
+
+        for (shellIndex = 0; shellIndex<gameState.getShellList().size()-1;shellIndex ++ ){
+            Entity shell1 = gameState.getShellList().get(shellIndex);
+            Entity shell2 = gameState.getShellList().get(shellIndex+1);
             if(gameState.entitiesOverlap(shell1,shell2)){
                 //gameState.shellCollision();
                 System.out.println("Shells has collided");
@@ -218,23 +212,16 @@ public class GameDriver {
         }
 
 
-        for (shellIndex = 0; shellIndex<gameState.getShells().size()-1;shellIndex ++ ){
-            Entity shell1 = gameState.getShells().get(shellIndex);
-            Entity shell2 = gameState.getShells().get(shellIndex+1);
-            if(gameState.entitiesOverlap(shell1,shell2)){
-                //gameState.shellCollision();
-                System.out.println("Shells has collided");
-            }
-        }
 
 
-        //This slowed the bullets down
-        gameState.getShells().clear();
-        //gameState.getEntities().clear(); //This will clear the tanks lol
+
+    //This slowed the bullets down
+    gameState.getShellList().clear();//This is to clear the list of shells
+    //gameState.getEntities().clear(); //This will clear the tanks lol
 
 
-        //  Boundary for Shell - shells  removed if reached that point
-        for (Iterator<Shell> iter = gameState.getOOBShellList().iterator(); iter.hasNext(); ) {
+    //  Boundary for Shell - shells  removed if reached that point
+        for (Iterator<Shell> iter = gameState.getShellList().iterator(); iter.hasNext(); ) {
             Shell oobShells = iter.next();
 
             if (gameState.OOBShell(oobShells)) {
@@ -246,17 +233,12 @@ public class GameDriver {
 //            }
         }
 
-        for (Shell shell: gameState.getOOBShellList()) {
+        for (Shell shell: gameState.getShellList()) {
             if (gameState.OOBShell(shell)) {
                 runGameView.removeDrawableEntity(shell.getId());
             }
         }
 
-        //I need to loop through the list of Shells list
-        //Create seperate Entity1 and Entity2 for bullet i and i+1
-
-        //Check if entitiesOverlap ( Entity1 , Entity)
-        //
 
 //        //This would check if tanks overlap,
 //        for (shellIndex = 0; shellIndex<gameState.getEntities().size()-1;shellIndex ++ ){
@@ -270,11 +252,7 @@ public class GameDriver {
 
 
 
-//        for(Entity entity: gameState.getShells()){
-//                    if (gameState.entitiesOverlap(entity,entity)) {
-//            runGameView.removeDrawableEntity(entity.getId());
-//        }
-//        }
+
 
 
         return true;
