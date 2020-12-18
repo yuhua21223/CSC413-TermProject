@@ -10,7 +10,7 @@ import edu.csc413.tankgame.model.*;
 // TODO: Notice that Tank has a lot in common with Shell. For full credit, you will need to find a way to share code
 // between the two classes so that the logic for e.g. moveForward, etc. are not duplicated.
 
-    //Removing abstract
+//Removing abstract
 
 public abstract class Tank extends Entity {
     private static final double MOVEMENT_SPEED = 2.0;
@@ -25,8 +25,14 @@ public abstract class Tank extends Entity {
     public void shoot(GameState gameState) {
 
         //When I was shoot Player playertank = new Playertank i was making a new playerTank object
+        //
+
         Shell shellCreated = new Shell(getShellX(),getShellY(),getAngle());
-        gameState.addShell(shellCreated);
+        gameState.ShellList.add(shellCreated);
+
+//2nd method to add shell but not working
+//        gameState.ShellList.add(shellCreated);
+//        gameState.addShell(shellCreated);
     }
 
 

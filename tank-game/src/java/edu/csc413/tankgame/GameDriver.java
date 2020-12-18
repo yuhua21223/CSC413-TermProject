@@ -4,7 +4,6 @@ import edu.csc413.tankgame.model.*;
 import edu.csc413.tankgame.view.MainView;
 import edu.csc413.tankgame.view.RunGameView;
 
-import javax.swing.plaf.basic.BasicTreeUI;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -42,7 +41,6 @@ public class GameDriver {
 //        //Just by implementing this, we can start the menu
         mainView.setScreen(MainView.Screen.START_MENU_SCREEN);
 
-        //mainView.setScreen(MainView.Screen.END_MENU_SCREEN);
 
     }
 
@@ -70,6 +68,16 @@ public class GameDriver {
     //This is important for the graphical images
     private void runGame() {
         //we will have a initial location of where the tank will be starting out
+
+
+        for (WallImageInfo addWall : WallImageInfo.readWalls()) {
+            gameState.addEntity(
+                    new Wall(addWall.getX() + "," + addWall.getY(), addWall.getX(), addWall.getY(),
+                            0));
+            runGameView.addDrawableEntity(
+                    addWall.getX() + "," + addWall.getY(), addWall.getImageFile(), addWall.getX(),
+                    addWall.getY(), 0);
+        }
 
         Tank playerTank =
                 new PlayerTank(
@@ -142,7 +150,7 @@ public class GameDriver {
     // TODO: Implement.
     // update should handle one frame of gameplay. All tanks and shells move one step, and all drawn entities
     // should be updated accordingly. It should return true as long as the game continues.
-    int shellIndex = 0;
+
 
 
     //Because Shell, Tank and Wall extends Entity, they will inherit over this method use
@@ -155,18 +163,10 @@ public class GameDriver {
                 && entity1.getYBound() > entity2.getY();
     } //Will return true if any of the following
 
+    int index;
+    int innerIndexPlusOne;
     private boolean update() {
 
-
-        //Adding Wall (I don't get errors when I put wall here
-        for (WallImageInfo addWall : WallImageInfo.readWalls()) {
-            gameState.addEntity(
-                    new Wall(addWall.getX() + "," + addWall.getY(), addWall.getX(), addWall.getY(),
-                            0));
-            runGameView.addDrawableEntity(
-                    addWall.getX() + "," + addWall.getY(), addWall.getImageFile(), addWall.getX(),
-                    addWall.getY(), 0);
-        }
 
 
         // Check collisions
@@ -191,22 +191,19 @@ public class GameDriver {
         //TODO: Game is slowing down because entities are being created in for loop
         //
 
-        //Traverse the List of tempShells
-        //Using Entity Data type to create
-
-        //for (dataType var : array/List)  //This will then loop through var[i]
+        //Traverse the  ShellList
+        //Creating tempShell var
+        for (Entity tempShell : gameState.getShellList()) {
+            //Using Entity Data type to create
+            //for (dataType var : array/List)  //This will then loop through var[i]
             //Then can be used for statement
 
-        //difference between dataType Entity and Shell
-            //
-        for (Entity tempShell : gameState.getEntities()) {
-            //The for each loop
-            //gameState.getShells() is the the list that return a shell String
-
-            //The addEntity Method
             gameState.addEntity(tempShell);
-            //The addEntity from gameState class will do thatill take add shell to list
-            // The .add() method w
+            //The addEntity from gameState class will take add shell to list
+            // The .add() method will do that
+
+            //While traversing , Entity tempShell[i]
+            //we call add Draw Entity to add shell to
             runGameView.addDrawableEntity(
                     tempShell.getId(), //returns String
                     runGameView.SHELL_IMAGE_FILE, //returns String
@@ -215,59 +212,104 @@ public class GameDriver {
                     tempShell.getAngle()
             );
 
-            //2nd method to attempt to move shell forward()
-            //tempShell.move(gameState);
-        }
 
-        //TODO: Shells won't print out print statement,
+
+
+        }
+       gameState.getShellList().clear();
+        //We can always check by using System.out to check items
+       // System.out.println(gameState.getShellList().size());
 
         //we need to check if any entity colids with other any entity { tell }
         //if anything colids with itself ignore (do nothing}
 
-//        for (int i=0 ; i< gameState.getEntities().size() ;i++)
-//        {
-//           for (int j=i+1 ;j<gameState.getEntities().size(); j++)
-//           {
-//            if(entitiesOverlap(gameState.getEntities().get(i),
-//                     gameState.getEntities().get(j)))
-//            {
-//                if (gameState.getEntities().get(i) instanceof Shell && gameState.getEntities().get(j)instanceof Shell )
+
+        for (index=0 ; index< gameState.getEntities().size() ;index++)
+        {
+           for (innerIndexPlusOne=index+1 ;innerIndexPlusOne<gameState.getEntities().size(); innerIndexPlusOne++)
+           {
+            if(entitiesOverlap(gameState.getEntities().get(index),
+                     gameState.getEntities().get(innerIndexPlusOne)))
+            {
+                if (gameState.getEntities().get(index) instanceof Shell && gameState.getEntities().get(innerIndexPlusOne)instanceof Shell )
+                {
+                    //We just remove shell if collided
+                    //TODO: removing shells when bounds checking so that their
+                    // corresponding images are also removed from the RunGameView.
+
+                    //removing shells when bounds checking so that their
+                    // corresponding images are also removed from the RunGameView.
+
+
+                    //I can just not simply remove it right away
+//                    runGameView.removeDrawableEntity(gameState.getEntities().get(i).getId());
+//                    runGameView.removeDrawableEntity(gameState.getEntities().get(j).getId());
+
+                    //Problem not removed from gameState
+                    //Gonna to move them again //inside
+                    //remove specific shell
+                    //will shift all element shell around
+                        //Shift forward
+
+                    //index move
+                    //A possible solution is
+                    //not remove right away
+
+                    System.out.println("shell and Shell has colided ");
+
+                }
+//                if (gameState.getEntities().get(i) instanceof Shell && gameState.getEntities().get(j)instanceof Tank )
 //                {
 //
-//                    System.out.println("shell and Shell has colided ");
+//                    System.out.println("shell and Tank has colided ");
 //
 //                }
-//            }
-//           }
+//                if (gameState.getEntities().get(i) instanceof Shell && gameState.getEntities().get(j)instanceof Wall )
+//                {
 //
-//        }
+//                    System.out.println("shell and Wall has colided ");
+//
+//                }
+//                if (gameState.getEntities().get(i) instanceof Tank && gameState.getEntities().get(j)instanceof Wall )
+//                {
+//
+//                    System.out.println("Tank and Wall has colided ");
+//
+//                }
+//                if (gameState.getEntities().get(i) instanceof Tank && gameState.getEntities().get(j)instanceof Tank )
+//                {
+//
+//                    System.out.println("Tank and Tank has colided ");
+//
+//                }
+            }
+           }
+
+        }
+
+
+        //Simplier solution to this
 
 
 
 
 
-    //Not correct for sure
-    //This slowed the bullets down
-
-    //gameState.getShellList().clear();//This is to clear the list of shells
-    //gameState.getEntities().clear(); //This will clear the tanks lol
+        //This slowed the bullets down
+        gameState.getShellList().clear();//This is to clear the list of shells
+        //gameState.getEntities().clear(); //This will clear the tanks lol
 
 
-    //  Boundary for Shell - shells  removed if reached that point
+        //  Boundary for Shell - shells  removed if reached that point
         for (Iterator<Shell> iter = gameState.getShellList().iterator(); iter.hasNext(); ) {
             Shell oobShells = iter.next();
 
             if (gameState.OOBShell(oobShells)) {
                 iter.remove();
             }
-//            if(gameState.entitiesOverlap(oobShells,oobShells2)){
-//                //gameState.shellCollision();
-//                System.out.println("Shells has collided");
-//            }
         }
 
         for (Shell shell: gameState.getShellList()) {
-            if (gameState.OOBShell(shell)) { //check if shell is out of bound
+            if (gameState.OOBShell(shell)) {
                 runGameView.removeDrawableEntity(shell.getId());
             }
         }
@@ -277,7 +319,7 @@ public class GameDriver {
 //        for (shellIndex = 0; shellIndex<gameState.getEntities().size()-1;shellIndex ++ ){
 //            Entity shell1 = gameState.getEntities().get(shellIndex);
 //            Entity shell2 = gameState.getEntities().get(shellIndex+1);
-//            if(entitiesOverlap(shell1,shell2)){
+//            if(gameState.entitiesOverlap(shell1,shell2)){
 //                //gameState.shellCollision();
 //                System.out.println("Tanks has collided");
 //            }

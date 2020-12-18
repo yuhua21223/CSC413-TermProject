@@ -15,8 +15,17 @@ public class AiTank2  extends Tank{
     @Override
     public void move(GameState gameState) {
 
+        if(counter == 0) {
+            counter = 200;
+        }
+        if (counter == 1) {
+            shoot(gameState);
+        }counter --;
+
+
 
         //Entity playerTank = gamestate.getEntities().getEnt(GameState.PLAYER_TANK_ID);
+
         Entity playerTank = gameState.getEntity(GameState.PLAYER_TANK_ID);
         double dx = playerTank.getX() - getX();
         double dy = playerTank.getY() - getY();
@@ -36,13 +45,7 @@ angleDifference -=
         // left or right. However, we don’t want the Tank to be constantly bouncing // back and forth around 0 degrees, alternating between left and right // turns, so we build in a small margin of error.
         if (angleDifference < -Math.toRadians(3.0)) {     turnRight();
             }   else if (angleDifference > Math.toRadians(3.0)) {     turnLeft();
-
         }
-        if(counter == 0) {
-            counter = 200;
-        }
-        if (counter == 1) {
-            shoot(gameState);
-        }counter --;
+        //shoot(gameState);
     }
 }

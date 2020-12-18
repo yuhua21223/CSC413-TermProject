@@ -59,6 +59,9 @@ public class GameState {
     private final List<Entity> entities = new ArrayList<>();
     //this has many entites
     public void addEntity(Entity entity) {
+
+
+
         entities.add(entity);
     }
 
@@ -74,7 +77,7 @@ public class GameState {
     public Entity getEntity( String id  ) {
         Entity temp=null;
         for (Entity entity : entities) {
-            if(entity.getId().equals(id))
+            if(entity.getId()==id)
             {
                 temp=entity;
             }
@@ -86,23 +89,38 @@ public class GameState {
 
     //This portion is for Shell ====================================================================
 
-//    We create a Shell List to store shells
-    private final List<Shell> ShellList = new ArrayList<>();
+    //    We create a Temporary List to store shells
+    public final List<Shell> ShellList = new ArrayList<>();
 
-    public void addShell(Shell shell) {
-        ShellList.add(shell);
-    }
 
     public List<Shell> getShellList(){
+
         return ShellList;
     }
 
+    //TODO: Creating Tempporary List to get Shells from ShellList
+    //Then remove them
 
-    //RemoveShellFromEntityList
+//    public List<Shell> TempShellList = new ArrayList<>();
+//
+//    public List<Shell> getTempShellList(){
+//
+//        return TempShellList;
+//    }
 
-//Objective: Remove all shells that reach out of bounds
-    //Method will return true if any of the following
-public boolean OOBShell( Shell shell) {
+    public Shell getTempShell() {
+        Shell TempShell = null;
+        for(Shell shell: ShellList) {
+            TempShell = shell;
+
+        }
+        return TempShell;
+    }
+
+
+
+    //Objective: Remove all shells that reach out of bounds
+    public boolean OOBShell( Shell shell) {
         return !(shell.getX() >= SHELL_X_LOWER_BOUND
                 && shell.getX() <= SHELL_X_UPPER_BOUND
                 && shell.getY() >= SHELL_Y_LOWER_BOUND
@@ -111,22 +129,24 @@ public boolean OOBShell( Shell shell) {
 
 
 
-//        //Because Shell, Tank and Wall extends Entity, they will inherit over this method use
-//        //This is called when object is created
-//        //Entity being the super class and extended are the subclass
-//    private boolean entitiesOverlap(Entity entity1, Entity entity2) {
-//        return entity1.getX() < entity2.getXBound()
-//                && entity1.getXBound() > entity2.getX()
-//                && entity1.getY() < entity2.getYBound()
-//                && entity1.getYBound() > entity2.getY();
-//    } //Will return true if any of the following
+    //Because Shell, Tank and Wall extends Entity, they will inherit over this method use
+    //This is called when object is created
+    //Entity being the super class and extended are the subclass
+    public boolean entitiesOverlap(Entity entity1, Entity entity2) {
+        return entity1.getX() < entity2.getXBound()
+                && entity1.getXBound() > entity2.getX()
+                && entity1.getY() < entity2.getYBound()
+                && entity1.getYBound() > entity2.getY();
+    } //Will return true if any of the following
 
 
     //Method for if Collision happen for shell
     //Remove both entities (How? )
-    public void shellCollisionRemoval(){
+    public void shellCollision(){
         ShellList.clear();
     }
+
+
 
 
 
