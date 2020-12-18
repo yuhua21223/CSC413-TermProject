@@ -4,6 +4,7 @@ import edu.csc413.tankgame.model.*;
 import edu.csc413.tankgame.view.MainView;
 import edu.csc413.tankgame.view.RunGameView;
 
+import javax.swing.plaf.basic.BasicTreeUI;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -41,6 +42,7 @@ public class GameDriver {
 //        //Just by implementing this, we can start the menu
         mainView.setScreen(MainView.Screen.START_MENU_SCREEN);
 
+        //mainView.setScreen(MainView.Screen.END_MENU_SCREEN);
 
     }
 
@@ -142,6 +144,17 @@ public class GameDriver {
     // should be updated accordingly. It should return true as long as the game continues.
     int shellIndex = 0;
 
+
+    //Because Shell, Tank and Wall extends Entity, they will inherit over this method use
+    //This is called when object is created
+    //Entity being the super class and extended are the subclass
+    private boolean entitiesOverlap(Entity entity1, Entity entity2) {
+        return entity1.getX() < entity2.getXBound()
+                && entity1.getXBound() > entity2.getX()
+                && entity1.getY() < entity2.getYBound()
+                && entity1.getYBound() > entity2.getY();
+    } //Will return true if any of the following
+
     private boolean update() {
 
 
@@ -179,14 +192,21 @@ public class GameDriver {
         //
 
         //Traverse the List of tempShells
-        for (Entity tempShell : gameState.getShellList()) {
+        //Using Entity Data type to create
+
+        //for (dataType var : array/List)  //This will then loop through var[i]
+            //Then can be used for statement
+
+        //difference between dataType Entity and Shell
+            //
+        for (Entity tempShell : gameState.getEntities()) {
             //The for each loop
             //gameState.getShells() is the the list that return a shell String
 
+            //The addEntity Method
             gameState.addEntity(tempShell);
-            //The addEntity from gameState class will take add shell to list
-            // The .add() method will do that
-
+            //The addEntity from gameState class will do thatill take add shell to list
+            // The .add() method w
             runGameView.addDrawableEntity(
                     tempShell.getId(), //returns String
                     runGameView.SHELL_IMAGE_FILE, //returns String
@@ -195,28 +215,41 @@ public class GameDriver {
                     tempShell.getAngle()
             );
 
+            //2nd method to attempt to move shell forward()
+            //tempShell.move(gameState);
         }
 
+        //TODO: Shells won't print out print statement,
 
-        // Won't be worrying about this efficiecy thing until I get collision detection for shells
+        //we need to check if any entity colids with other any entity { tell }
+        //if anything colids with itself ignore (do nothing}
+
+//        for (int i=0 ; i< gameState.getEntities().size() ;i++)
+//        {
+//           for (int j=i+1 ;j<gameState.getEntities().size(); j++)
+//           {
+//            if(entitiesOverlap(gameState.getEntities().get(i),
+//                     gameState.getEntities().get(j)))
+//            {
+//                if (gameState.getEntities().get(i) instanceof Shell && gameState.getEntities().get(j)instanceof Shell )
+//                {
+//
+//                    System.out.println("shell and Shell has colided ");
+//
+//                }
+//            }
+//           }
+//
+//        }
 
 
 
-        for (shellIndex = 0; shellIndex<gameState.getShellList().size()-1;shellIndex ++ ){
-            Entity shell1 = gameState.getShellList().get(shellIndex);
-            Entity shell2 = gameState.getShellList().get(shellIndex+1);
-            if(gameState.entitiesOverlap(shell1,shell2)){
-                //gameState.shellCollision();
-                System.out.println("Shells has collided");
-            }
-        }
 
 
-
-
-
+    //Not correct for sure
     //This slowed the bullets down
-    gameState.getShellList().clear();//This is to clear the list of shells
+
+    //gameState.getShellList().clear();//This is to clear the list of shells
     //gameState.getEntities().clear(); //This will clear the tanks lol
 
 
@@ -234,7 +267,7 @@ public class GameDriver {
         }
 
         for (Shell shell: gameState.getShellList()) {
-            if (gameState.OOBShell(shell)) {
+            if (gameState.OOBShell(shell)) { //check if shell is out of bound
                 runGameView.removeDrawableEntity(shell.getId());
             }
         }
@@ -244,7 +277,7 @@ public class GameDriver {
 //        for (shellIndex = 0; shellIndex<gameState.getEntities().size()-1;shellIndex ++ ){
 //            Entity shell1 = gameState.getEntities().get(shellIndex);
 //            Entity shell2 = gameState.getEntities().get(shellIndex+1);
-//            if(gameState.entitiesOverlap(shell1,shell2)){
+//            if(entitiesOverlap(shell1,shell2)){
 //                //gameState.shellCollision();
 //                System.out.println("Tanks has collided");
 //            }

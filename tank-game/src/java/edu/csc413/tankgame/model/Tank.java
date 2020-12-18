@@ -25,10 +25,8 @@ public abstract class Tank extends Entity {
     public void shoot(GameState gameState) {
 
         //When I was shoot Player playertank = new Playertank i was making a new playerTank object
-        //
-
         Shell shellCreated = new Shell(getShellX(),getShellY(),getAngle());
-        gameState.ShellList.add(shellCreated);
+        gameState.addShell(shellCreated);
     }
 
 

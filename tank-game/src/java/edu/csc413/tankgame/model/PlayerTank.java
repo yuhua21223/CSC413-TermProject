@@ -34,14 +34,6 @@ public class PlayerTank extends Tank {
         }
 
 
-//        //A tank colliding with a tank
-//        private boolean entitiesOverlap(Entity entity1, Entity entity2) {
-//            return entity1.getX() < entity2.getXBound()
-//                    && entity1.getXBound() > entity2.getX()
-//                    && entity1.getY() < entity2.getYBound()
-//                    && entity1.getYBound() > entity2.getY();
-//        }
-
 
         // TODO: This part is left to me
         //The methods need to be implemented for this to work
