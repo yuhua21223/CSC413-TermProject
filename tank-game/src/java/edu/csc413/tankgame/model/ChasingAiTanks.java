@@ -17,6 +17,7 @@ public class ChasingAiTanks extends Tank {
     @Override
     public void move(GameState gameState) {
 
+//Turned tank off for a little bit
 
         if(counter == 0) {
             counter = 200;

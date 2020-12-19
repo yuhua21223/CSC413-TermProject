@@ -59,14 +59,21 @@ public class GameState {
     private final List<Entity> entities = new ArrayList<>();
     //this has many entites
     public void addEntity(Entity entity) {
-
-
-
         entities.add(entity);
     }
 
     public List<Entity> getEntities() {
         return entities;
+    }
+
+    public void GameStateShellRemoval(Entity entityFromGameDriver) {
+
+        for (Entity entity : entities) {
+            if(entity == entityFromGameDriver)
+            {
+                entities.remove(entity);
+            }
+        }
     }
 
     // I need method to get the playerTank entity inside the list
@@ -98,24 +105,16 @@ public class GameState {
         return ShellList;
     }
 
-    //TODO: Creating Tempporary List to get Shells from ShellList
-    //Then remove them
 
-//    public List<Shell> TempShellList = new ArrayList<>();
+
+//    public Shell getTempShell() {
+//        Shell TempShell = null;
+//        for(Shell shell: ShellList) {
+//            TempShell = shell;
 //
-//    public List<Shell> getTempShellList(){
-//
-//        return TempShellList;
+//        }
+//        return TempShell;
 //    }
-
-    public Shell getTempShell() {
-        Shell TempShell = null;
-        for(Shell shell: ShellList) {
-            TempShell = shell;
-
-        }
-        return TempShell;
-    }
 
 
 
@@ -139,12 +138,6 @@ public class GameState {
                 && entity1.getYBound() > entity2.getY();
     } //Will return true if any of the following
 
-
-    //Method for if Collision happen for shell
-    //Remove both entities (How? )
-    public void shellCollision(){
-        ShellList.clear();
-    }
 
 
 
@@ -188,7 +181,6 @@ public class GameState {
     public static void setSpace(boolean b) {
         shoot = b;
     }
-
 
 
     public static class GameKeyListener implements KeyListener {

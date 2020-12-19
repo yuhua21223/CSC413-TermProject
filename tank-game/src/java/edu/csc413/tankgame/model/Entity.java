@@ -41,7 +41,7 @@ public abstract class Entity {
     }
 
 
-    protected void setY(double y) {
+    public void setY(double y) {
         this.y = y;
     }
 

@@ -72,10 +72,10 @@ public class GameDriver {
 
         for (WallImageInfo addWall : WallImageInfo.readWalls()) {
             gameState.addEntity(
-                    new Wall(addWall.getX() + "," + addWall.getY(), addWall.getX(), addWall.getY(),
+                    new Wall(addWall.getX() + "stringID" + addWall.getY(), addWall.getX(), addWall.getY(),
                             0));
             runGameView.addDrawableEntity(
-                    addWall.getX() + "," + addWall.getY(), addWall.getImageFile(), addWall.getX(),
+                    addWall.getX() + "stringID" + addWall.getY(), addWall.getImageFile(), addWall.getX(),
                     addWall.getY(), 0);
         }
 
@@ -98,7 +98,7 @@ public class GameDriver {
 
         //Adding my third tank
         Tank aiTank2 =
-                new AiTank2(GameState.AI_TANK_2_ID,
+                new turretAI(GameState.AI_TANK_2_ID,
                         RunGameView.AI_TANK_2_INITIAL_X,
                         RunGameView.AI_TANK_2_INITIAL_Y,
                         RunGameView.AI_TANK_2_INITIAL_ANGLE);
@@ -163,8 +163,8 @@ public class GameDriver {
                 && entity1.getYBound() > entity2.getY();
     } //Will return true if any of the following
 
-    int index;
-    int innerIndexPlusOne;
+    int Entity1;
+    int Entity2;
     private boolean update() {
 
 
@@ -211,27 +211,32 @@ public class GameDriver {
                     tempShell.getY(),
                     tempShell.getAngle()
             );
-
-
-
-
         }
        gameState.getShellList().clear();
         //We can always check by using System.out to check items
        // System.out.println(gameState.getShellList().size());
 
-        //we need to check if any entity colids with other any entity { tell }
+        //
+
+
+        //Check if any entity colids with other any entity { tell }
         //if anything colids with itself ignore (do nothing}
 
 
-        for (index=0 ; index< gameState.getEntities().size() ;index++)
+
+
+        for (Entity1 =0 ; Entity1 < gameState.getEntities().size() ; Entity1++)
         {
-           for (innerIndexPlusOne=index+1 ;innerIndexPlusOne<gameState.getEntities().size(); innerIndexPlusOne++)
+            //We use plus one for inner loop to prevent the double of initial combinations
+
+//           int listSize = gameState.getEntities().size();
+           for (Entity2 = Entity1 +1 ; Entity2 <gameState.getEntities().size() ; Entity2++)
            {
-            if(entitiesOverlap(gameState.getEntities().get(index),
-                     gameState.getEntities().get(innerIndexPlusOne)))
+            if(entitiesOverlap(gameState.getEntities().get(Entity1),
+                     gameState.getEntities().get(Entity2)))
             {
-                if (gameState.getEntities().get(index) instanceof Shell && gameState.getEntities().get(innerIndexPlusOne)instanceof Shell )
+
+                if (gameState.getEntities().get(Entity1) instanceof Shell && gameState.getEntities().get(Entity2)instanceof Shell )
                 {
                     //We just remove shell if collided
                     //TODO: removing shells when bounds checking so that their
@@ -241,47 +246,133 @@ public class GameDriver {
                     // corresponding images are also removed from the RunGameView.
 
 
-                    //I can just not simply remove it right away
-//                    runGameView.removeDrawableEntity(gameState.getEntities().get(i).getId());
-//                    runGameView.removeDrawableEntity(gameState.getEntities().get(j).getId());
+                    //GameStateShellRemoval()- This method does this For{ entities.remove(entity);}
 
-                    //Problem not removed from gameState
-                    //Gonna to move them again //inside
+
+                    //I get Concurrent ConcurrentModificationException
+                   gameState.GameStateShellRemoval(gameState.getEntities().get(Entity1));
+                   gameState.GameStateShellRemoval(gameState.getEntities().get(Entity2));
+
+                    //I get IndexOutOfBoundsException: Index 53 out of bounds for length 53
+//                    gameState.getEntities().remove(gameState.getEntities().get(Entity1));
+//                    gameState.getEntities().remove(gameState.getEntities().get(Entity2));
+
+
+
+
+//                    I can just not simply remove it right away, I must call GameStateShellRemoval()
+//
+//                    The reason is for the NullPointerException
+//                        This occurs because the Entity is not removed in Program State
+//                            REMEMBER: Watch out for in the future- Shifts all element in the future foward
+
+//                    runGameView.removeDrawableEntity(gameState.getEntities().get(Entity1).getId());
+//                    runGameView.removeDrawableEntity(gameState.getEntities().get(Entity2).getId());
+
+                    //add animation of explosion
+                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY
+                    ,gameState.getEntities().get(Entity1).getX(),gameState.getEntities().get(Entity1).getY());
+                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
+                            gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
+
+
+                    //Problem is that the Entity is not removed from gameState
+                    //Gonna to remove them again inside programState
                     //remove specific shell
                     //will shift all element shell around
                         //Shift forward
 
-                    //index move
+                    //index move (settingShellRemocal maybe)
                     //A possible solution is
                     //not remove right away
 
-                    System.out.println("shell and Shell has colided ");
+
+
+                   // System.out.println("shell and Shell has colided ");
 
                 }
-//                if (gameState.getEntities().get(i) instanceof Shell && gameState.getEntities().get(j)instanceof Tank )
+//                if (gameState.getEntities().get(Entity1) instanceof Shell && gameState.getEntities().get(Entity2)instanceof Tank )
 //                {
+//
+//                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY
+//                            ,gameState.getEntities().get(Entity1).getX(),gameState.getEntities().get(Entity1).getY());
+//                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
+//                            gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
 //
 //                    System.out.println("shell and Tank has colided ");
 //
 //                }
-//                if (gameState.getEntities().get(i) instanceof Shell && gameState.getEntities().get(j)instanceof Wall )
+//                if (gameState.getEntities().get(Entity1) instanceof Shell && gameState.getEntities().get(Entity2)instanceof Wall )
 //                {
 //
+//                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY
+//                            ,gameState.getEntities().get(Entity1).getX(),gameState.getEntities().get(Entity1).getY());
+//                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
+//                            gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
 //                    System.out.println("shell and Wall has colided ");
 //
 //                }
-//                if (gameState.getEntities().get(i) instanceof Tank && gameState.getEntities().get(j)instanceof Wall )
+//                if (gameState.getEntities().get(Entity1) instanceof Tank && gameState.getEntities().get(Entity2)instanceof Wall )
 //                {
 //
 //                    System.out.println("Tank and Wall has colided ");
 //
 //                }
-//                if (gameState.getEntities().get(i) instanceof Tank && gameState.getEntities().get(j)instanceof Tank )
+//                if (gameState.getEntities().get(Entity1) instanceof Tank && gameState.getEntities().get(Entity2)instanceof Tank )
 //                {
+//                    //tankb is player tank
+//                    //left
+//                    double tankbX1 = gameState.getEntities().get(Entity1).getXBound() - gameState.getEntities().get(Entity2).getX();
+//                    //right
+//                    double tankbX2 = gameState.getEntities().get(Entity2).getXBound() - gameState.getEntities().get(Entity1).getX();
+//                    //up
+//                    double tankbY1 = gameState.getEntities().get(Entity1).getYBound() - gameState.getEntities().get(Entity2).getY();
+//                    //down
+//                    double tankbY2 = gameState.getEntities().get(Entity2).getYBound() - gameState.getEntities().get(Entity1).getY();
 //
-//                    System.out.println("Tank and Tank has colided ");
+////                    double tankMovementX = Math.min(tankbX1,tankbX2);
+////                    double tankMovementY = Math.min(tankbY1, tankbY2);
 //
-//                }
+//                    double minMove = Math.min(Math.min(Math.min(tankbX1,tankbX2),tankbY2),tankbY1);
+//
+//                    if(tankbX1 == minMove ) {
+//                        gameState.getEntities().get(Entity1).setX(gameState.getEntities().get(Entity1).getX() - minMove);
+//                    }else if (tankbX2 == minMove ) {
+//                        gameState.getEntities().get(Entity1).setX(gameState.getEntities().get(Entity1).getX() + minMove);
+//                    }else if (tankbY1 == minMove ) {
+//                        gameState.getEntities().get(Entity1).setY(gameState.getEntities().get(Entity1).getY() - minMove);
+//                    }else if (tankbY2 == minMove ) {
+//                        gameState.getEntities().get(Entity1).setY(gameState.getEntities().get(Entity1).getY() + minMove);
+//                    }
+//
+//                    //left
+//                    double tankaX1 = gameState.getEntities().get(Entity1).getXBound() - gameState.getEntities().get(Entity2).getX();
+//                    //right
+//                    double tankaX2 = gameState.getEntities().get(Entity2).getXBound() - gameState.getEntities().get(Entity1).getX();
+//                    //up
+//                    double tankaY1 = gameState.getEntities().get(Entity1).getYBound() - gameState.getEntities().get(Entity2).getY();
+//                    //down
+//                    double tankaY2 = gameState.getEntities().get(Entity2).getYBound() - gameState.getEntities().get(Entity1).getY();
+//
+//
+//                    double minMove2 = Math.min(Math.min(Math.min(tankaX1,tankaX2),tankaY2),tankaY1);
+//
+//                    System.out.println(minMove +" " + minMove2);
+//
+//                    if(tankbX1 == minMove2 ) {
+//                        gameState.getEntities().get(Entity2).setX(gameState.getEntities().get(Entity2).getX() - minMove +1);
+//                    }else if (tankbX2 == minMove2 ) {
+//                        gameState.getEntities().get(Entity2).setX(gameState.getEntities().get(Entity2).getX() + minMove +1);
+//                    }else if (tankbY1 == minMove2 ) {
+//                        gameState.getEntities().get(Entity2).setY(gameState.getEntities().get(Entity2).getY() - minMove+1);
+//                    }else if (tankbY2 == minMove2 ) {
+//                        gameState.getEntities().get(Entity2).setY(gameState.getEntities().get(Entity2).getY() + minMove+1);
+//                    }
+//                    if(tankMovementX < tankMovementY) {
+//
+//                    }
+
+                //}
             }
            }
 
@@ -295,7 +386,8 @@ public class GameDriver {
 
 
         //This slowed the bullets down
-        gameState.getShellList().clear();//This is to clear the list of shells
+        gameState.getShellList().clear();
+    //This is to clear the list of shells
         //gameState.getEntities().clear(); //This will clear the tanks lol
 
 

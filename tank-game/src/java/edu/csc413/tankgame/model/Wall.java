@@ -2,8 +2,10 @@ package edu.csc413.tankgame.model;
 
 public class Wall extends Entity {
 
-//    private static final String WALL_ID_PREFIX = "shell-";
-//    private static long uniqueId = 0L;
+    private static final String WALL_ID_PREFIX = "wall-";
+    private static long uniqueId1 = 0L;
+
+
 
     public Wall(String id, double x, double y, double angle) {
         super(id, x, y, angle);
@@ -26,8 +28,8 @@ public class Wall extends Entity {
     }
 
 //    //Pretty sure ID is not needed for now
-//    private static String getUniqueId() {
-//        return WALL_ID_PREFIX + uniqueId++;
-//    }
+    private static String getUniqueId() {
+        return WALL_ID_PREFIX + uniqueId1++;
+    }
 
 }

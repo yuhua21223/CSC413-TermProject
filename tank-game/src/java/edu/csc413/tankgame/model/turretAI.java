@@ -3,10 +3,13 @@ package edu.csc413.tankgame.model;
 import edu.csc413.tankgame.model.GameState;
 import edu.csc413.tankgame.model.Entity;
 
+import static edu.csc413.tankgame.model.GameState.*;
+import static edu.csc413.tankgame.model.GameState.TANK_Y_UPPER_BOUND;
+
 
 //Just try to add it onto the screen first
-public class AiTank2  extends Tank{
-    public AiTank2(String id, double x, double y, double angle) {
+public class turretAI extends Tank{
+    public turretAI(String id, double x, double y, double angle) {
         super(id, x, y, angle);
 
     }
@@ -22,6 +25,23 @@ public class AiTank2  extends Tank{
             shoot(gameState);
         }counter --;
 
+
+        Entity AITank2 = gameState.getEntity(AI_TANK_2_ID);
+        if(AITank2.getX() < TANK_X_LOWER_BOUND )
+        {
+            //How to set position of tank ?
+            AITank2.setX(TANK_X_LOWER_BOUND);
+
+        }
+        if(AITank2.getX() > TANK_X_UPPER_BOUND) {
+            AITank2.setX(TANK_X_UPPER_BOUND);
+        }
+        if(AITank2.getY() < TANK_Y_LOWER_BOUND) {
+            AITank2.setY(TANK_Y_LOWER_BOUND);
+        }
+        if(AITank2.getY() > TANK_Y_UPPER_BOUND){
+            AITank2.setY(TANK_Y_UPPER_BOUND);
+        }
 
 
         //Entity playerTank = gamestate.getEntities().getEnt(GameState.PLAYER_TANK_ID);
