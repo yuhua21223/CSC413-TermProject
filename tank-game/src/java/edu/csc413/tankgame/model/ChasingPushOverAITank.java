@@ -13,6 +13,7 @@ public class ChasingPushOverAITank extends Tank {
     //we will pass everything to DumbAI
     //This is defining things unique to this AI
     int counter = 200;
+    double optRange = 100;
 
     @Override
     public void move(GameState gameState) {
@@ -45,6 +46,8 @@ public class ChasingPushOverAITank extends Tank {
 
 
 
+
+
         //Entity playerTank = gamestate.getEntities().getEnt(GameState.PLAYER_TANK_ID);
 
         Entity playerTank = gameState.getEntity(GameState.PLAYER_TANK_ID);
@@ -62,7 +65,7 @@ public class ChasingPushOverAITank extends Tank {
         angleDifference -=
                 Math.floor(angleDifference / Math.toRadians(360.0) + 0.5) * Math.toRadians(360.0);
 
-        moveForward();
+//        moveForward();
 
         // The angle difference being positive or negative determines if we turn
         // left or right. However, we don’t want the Tank to be constantly bouncing // back and forth around 0 degrees, alternating between left and right // turns, so we build in a small margin of error.
@@ -72,6 +75,11 @@ public class ChasingPushOverAITank extends Tank {
 
         }
 
+        double distance = counter;
+        if (distance > optRange)
+            moveForward();
+        if (distance < optRange)
+            moveBackward();
 
     }
 }
