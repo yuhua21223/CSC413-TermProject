@@ -71,7 +71,7 @@ public class GameState {
         for (Entity entity : entities) {
             if(entity == entityFromGameDriver)
             {
-                entities.remove(entity);
+                ShellList.remove(entity);
             }
         }
     }

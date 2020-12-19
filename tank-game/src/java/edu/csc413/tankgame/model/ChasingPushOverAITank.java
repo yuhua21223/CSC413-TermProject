@@ -3,8 +3,8 @@ package edu.csc413.tankgame.model;
 import static edu.csc413.tankgame.model.GameState.*;
 import static edu.csc413.tankgame.model.GameState.TANK_Y_UPPER_BOUND;
 
-public class ChasingAiTanks extends Tank {
-    public ChasingAiTanks(String id, double x, double y, double angle) {
+public class ChasingPushOverAITank extends Tank {
+    public ChasingPushOverAITank(String id, double x, double y, double angle) {
         super(id, x, y, angle);
     }
 
@@ -17,7 +17,7 @@ public class ChasingAiTanks extends Tank {
     @Override
     public void move(GameState gameState) {
 
-//Turned tank off for a little bit
+
 
         if(counter == 0) {
             counter = 200;
@@ -69,7 +69,7 @@ public class ChasingAiTanks extends Tank {
         if (angleDifference < -Math.toRadians(3.0)) {     turnRight();
         }   else if (angleDifference > Math.toRadians(3.0)) {
             turnLeft();
-            moveForward();
+
         }
 
 

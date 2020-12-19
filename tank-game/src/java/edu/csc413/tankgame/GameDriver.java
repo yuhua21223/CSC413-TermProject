@@ -88,7 +88,7 @@ public class GameDriver {
                 );
 
         Tank aiTank =
-                new ChasingAiTanks(
+                new ChasingPushOverAITank(
                         GameState.AI_TANK_ID,
                         RunGameView.AI_TANK_INITIAL_X,
                         RunGameView.AI_TANK_INITIAL_Y,
@@ -236,7 +236,7 @@ public class GameDriver {
                      gameState.getEntities().get(Entity2)))
             {
 
-                if (gameState.getEntities().get(Entity1) instanceof Shell && gameState.getEntities().get(Entity2)instanceof Shell )
+                if (gameState.getEntities().get(Entity2) instanceof Shell && gameState.getEntities().get(Entity1)instanceof Shell )
                 {
                     //We just remove shell if collided
                     //TODO: removing shells when bounds checking so that their
@@ -250,6 +250,10 @@ public class GameDriver {
 
 
                     //I get Concurrent ConcurrentModificationException
+
+
+//                    runGameView.removeDrawableEntity(gameState.getEntities().get(Entity1).getId());
+//                    runGameView.removeDrawableEntity(gameState.getEntities().get(Entity2).getId());
                    gameState.GameStateShellRemoval(gameState.getEntities().get(Entity1));
                    gameState.GameStateShellRemoval(gameState.getEntities().get(Entity2));
 
@@ -266,8 +270,6 @@ public class GameDriver {
 //                        This occurs because the Entity is not removed in Program State
 //                            REMEMBER: Watch out for in the future- Shifts all element in the future foward
 
-//                    runGameView.removeDrawableEntity(gameState.getEntities().get(Entity1).getId());
-//                    runGameView.removeDrawableEntity(gameState.getEntities().get(Entity2).getId());
 
                     //add animation of explosion
                     runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY
@@ -291,88 +293,157 @@ public class GameDriver {
                    // System.out.println("shell and Shell has colided ");
 
                 }
-//                if (gameState.getEntities().get(Entity1) instanceof Shell && gameState.getEntities().get(Entity2)instanceof Tank )
-//                {
-//
-//                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY
-//                            ,gameState.getEntities().get(Entity1).getX(),gameState.getEntities().get(Entity1).getY());
-//                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
-//                            gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
-//
-//                    System.out.println("shell and Tank has colided ");
-//
-//                }
-//                if (gameState.getEntities().get(Entity1) instanceof Shell && gameState.getEntities().get(Entity2)instanceof Wall )
-//                {
-//
-//                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY
-//                            ,gameState.getEntities().get(Entity1).getX(),gameState.getEntities().get(Entity1).getY());
-//                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
-//                            gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
-//                    System.out.println("shell and Wall has colided ");
-//
-//                }
-//                if (gameState.getEntities().get(Entity1) instanceof Tank && gameState.getEntities().get(Entity2)instanceof Wall )
-//                {
-//
-//                    System.out.println("Tank and Wall has colided ");
-//
-//                }
-//                if (gameState.getEntities().get(Entity1) instanceof Tank && gameState.getEntities().get(Entity2)instanceof Tank )
-//                {
-//                    //tankb is player tank
-//                    //left
-//                    double tankbX1 = gameState.getEntities().get(Entity1).getXBound() - gameState.getEntities().get(Entity2).getX();
-//                    //right
-//                    double tankbX2 = gameState.getEntities().get(Entity2).getXBound() - gameState.getEntities().get(Entity1).getX();
-//                    //up
-//                    double tankbY1 = gameState.getEntities().get(Entity1).getYBound() - gameState.getEntities().get(Entity2).getY();
-//                    //down
-//                    double tankbY2 = gameState.getEntities().get(Entity2).getYBound() - gameState.getEntities().get(Entity1).getY();
-//
-////                    double tankMovementX = Math.min(tankbX1,tankbX2);
-////                    double tankMovementY = Math.min(tankbY1, tankbY2);
-//
-//                    double minMove = Math.min(Math.min(Math.min(tankbX1,tankbX2),tankbY2),tankbY1);
-//
-//                    if(tankbX1 == minMove ) {
-//                        gameState.getEntities().get(Entity1).setX(gameState.getEntities().get(Entity1).getX() - minMove);
-//                    }else if (tankbX2 == minMove ) {
-//                        gameState.getEntities().get(Entity1).setX(gameState.getEntities().get(Entity1).getX() + minMove);
-//                    }else if (tankbY1 == minMove ) {
-//                        gameState.getEntities().get(Entity1).setY(gameState.getEntities().get(Entity1).getY() - minMove);
-//                    }else if (tankbY2 == minMove ) {
-//                        gameState.getEntities().get(Entity1).setY(gameState.getEntities().get(Entity1).getY() + minMove);
-//                    }
-//
-//                    //left
-//                    double tankaX1 = gameState.getEntities().get(Entity1).getXBound() - gameState.getEntities().get(Entity2).getX();
-//                    //right
-//                    double tankaX2 = gameState.getEntities().get(Entity2).getXBound() - gameState.getEntities().get(Entity1).getX();
-//                    //up
-//                    double tankaY1 = gameState.getEntities().get(Entity1).getYBound() - gameState.getEntities().get(Entity2).getY();
-//                    //down
-//                    double tankaY2 = gameState.getEntities().get(Entity2).getYBound() - gameState.getEntities().get(Entity1).getY();
-//
-//
-//                    double minMove2 = Math.min(Math.min(Math.min(tankaX1,tankaX2),tankaY2),tankaY1);
-//
-//                    System.out.println(minMove +" " + minMove2);
-//
-//                    if(tankbX1 == minMove2 ) {
-//                        gameState.getEntities().get(Entity2).setX(gameState.getEntities().get(Entity2).getX() - minMove +1);
-//                    }else if (tankbX2 == minMove2 ) {
-//                        gameState.getEntities().get(Entity2).setX(gameState.getEntities().get(Entity2).getX() + minMove +1);
-//                    }else if (tankbY1 == minMove2 ) {
-//                        gameState.getEntities().get(Entity2).setY(gameState.getEntities().get(Entity2).getY() - minMove+1);
-//                    }else if (tankbY2 == minMove2 ) {
-//                        gameState.getEntities().get(Entity2).setY(gameState.getEntities().get(Entity2).getY() + minMove+1);
-//                    }
-//                    if(tankMovementX < tankMovementY) {
-//
-//                    }
+                if (gameState.getEntities().get(Entity1) instanceof Shell && gameState.getEntities().get(Entity2)instanceof Tank )
+                {
 
-                //}
+                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY
+                            ,gameState.getEntities().get(Entity1).getX(),gameState.getEntities().get(Entity1).getY());
+                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
+                            gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
+
+                    System.out.println("shell and Tank has colided ");
+
+                }
+                if (gameState.getEntities().get(Entity2) instanceof Shell && gameState.getEntities().get(Entity1)instanceof Tank )
+                {
+
+                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY
+                            ,gameState.getEntities().get(Entity1).getX(),gameState.getEntities().get(Entity1).getY());
+                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
+                            gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
+
+                    System.out.println("shell and Tank has colided ");
+
+                }
+                if (gameState.getEntities().get(Entity1) instanceof Shell && gameState.getEntities().get(Entity2)instanceof Wall )
+                {
+
+                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY
+                            ,gameState.getEntities().get(Entity1).getX(),gameState.getEntities().get(Entity1).getY());
+                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
+                            gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
+                    System.out.println("shell and Wall has colided ");
+
+                }
+                if (gameState.getEntities().get(Entity2) instanceof Shell && gameState.getEntities().get(Entity1)instanceof Wall )
+                {
+
+                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY
+                            ,gameState.getEntities().get(Entity1).getX(),gameState.getEntities().get(Entity1).getY());
+                    runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
+                            gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
+                    System.out.println("shell and Wall has colided ");
+
+                }
+                if (gameState.getEntities().get(Entity1) instanceof Tank && gameState.getEntities().get(Entity2)instanceof Wall )
+                {
+                    System.out.println("Tank and Wall has colided ");
+
+                }
+                if (gameState.getEntities().get(Entity2) instanceof Tank && gameState.getEntities().get(Entity1)instanceof Wall )
+                {
+                    System.out.println("Tank and Wall has colided ");
+                    //tankb is player tank
+                    //left
+                    double tankbX1 = gameState.getEntities().get(Entity1).getXBound() - gameState.getEntities().get(Entity2).getX();
+                    //right
+                    double tankbX2 = gameState.getEntities().get(Entity2).getXBound() - gameState.getEntities().get(Entity1).getX();
+                    //up
+                    double tankbY1 = gameState.getEntities().get(Entity1).getYBound() - gameState.getEntities().get(Entity2).getY();
+                    //down
+                    double tankbY2 = gameState.getEntities().get(Entity2).getYBound() - gameState.getEntities().get(Entity1).getY();
+
+
+
+                    double minMove = Math.min(Math.min(Math.min(tankbX1,tankbX2),tankbY2),tankbY1);
+
+                    if(tankbX1 == minMove ) {
+                        gameState.getEntities().get(Entity1).setX(gameState.getEntities().get(Entity1).getX() - minMove);
+                    }else if (tankbX2 == minMove ) {
+                        gameState.getEntities().get(Entity1).setX(gameState.getEntities().get(Entity1).getX() + minMove);
+                    }else if (tankbY1 == minMove ) {
+                        gameState.getEntities().get(Entity1).setY(gameState.getEntities().get(Entity1).getY() - minMove);
+                    }else if (tankbY2 == minMove ) {
+                        gameState.getEntities().get(Entity1).setY(gameState.getEntities().get(Entity1).getY() + minMove);
+                    }
+
+                    //left
+                    double tankaX1 = gameState.getEntities().get(Entity1).getXBound() - gameState.getEntities().get(Entity2).getX();
+                    //right
+                    double tankaX2 = gameState.getEntities().get(Entity2).getXBound() - gameState.getEntities().get(Entity1).getX();
+                    //up
+                    double tankaY1 = gameState.getEntities().get(Entity1).getYBound() - gameState.getEntities().get(Entity2).getY();
+                    //down
+                    double tankaY2 = gameState.getEntities().get(Entity2).getYBound() - gameState.getEntities().get(Entity1).getY();
+
+
+                    double minMove2 = Math.min(Math.min(Math.min(tankaX1,tankaX2),tankaY2),tankaY1);
+
+
+                    if(tankbX1 == minMove2 ) {
+                        gameState.getEntities().get(Entity2).setX(gameState.getEntities().get(Entity2).getX() - minMove );
+                    }else if (tankbX2 == minMove2 ) {
+                        gameState.getEntities().get(Entity2).setX(gameState.getEntities().get(Entity2).getX() + minMove );
+                    }else if (tankbY1 == minMove2 ) {
+                        gameState.getEntities().get(Entity2).setY(gameState.getEntities().get(Entity2).getY() - minMove);
+                    }else if (tankbY2 == minMove2 ) {
+                        gameState.getEntities().get(Entity2).setY(gameState.getEntities().get(Entity2).getY() + minMove);
+                    }
+
+
+
+                }
+                if (gameState.getEntities().get(Entity2) instanceof Tank && gameState.getEntities().get(Entity1)instanceof Tank )
+                {
+                    //tankb is player tank
+                    //left
+                    double tankbX1 = gameState.getEntities().get(Entity1).getXBound() - gameState.getEntities().get(Entity2).getX();
+                    //right
+                    double tankbX2 = gameState.getEntities().get(Entity2).getXBound() - gameState.getEntities().get(Entity1).getX();
+                    //up
+                    double tankbY1 = gameState.getEntities().get(Entity1).getYBound() - gameState.getEntities().get(Entity2).getY();
+                    //down
+                    double tankbY2 = gameState.getEntities().get(Entity2).getYBound() - gameState.getEntities().get(Entity1).getY();
+
+
+
+                    double minMove = Math.min(Math.min(Math.min(tankbX1,tankbX2),tankbY2),tankbY1);
+
+                    if(tankbX1 == minMove ) {
+                        gameState.getEntities().get(Entity1).setX(gameState.getEntities().get(Entity1).getX() - minMove);
+                    }else if (tankbX2 == minMove ) {
+                        gameState.getEntities().get(Entity1).setX(gameState.getEntities().get(Entity1).getX() + minMove);
+                    }else if (tankbY1 == minMove ) {
+                        gameState.getEntities().get(Entity1).setY(gameState.getEntities().get(Entity1).getY() - minMove);
+                    }else if (tankbY2 == minMove ) {
+                        gameState.getEntities().get(Entity1).setY(gameState.getEntities().get(Entity1).getY() + minMove);
+                    }
+
+                    //left
+                    double tankaX1 = gameState.getEntities().get(Entity1).getXBound() - gameState.getEntities().get(Entity2).getX();
+                    //right
+                    double tankaX2 = gameState.getEntities().get(Entity2).getXBound() - gameState.getEntities().get(Entity1).getX();
+                    //up
+                    double tankaY1 = gameState.getEntities().get(Entity1).getYBound() - gameState.getEntities().get(Entity2).getY();
+                    //down
+                    double tankaY2 = gameState.getEntities().get(Entity2).getYBound() - gameState.getEntities().get(Entity1).getY();
+
+
+                    double minMove2 = Math.min(Math.min(Math.min(tankaX1,tankaX2),tankaY2),tankaY1);
+
+
+                    if(tankbX1 == minMove2 ) {
+                        gameState.getEntities().get(Entity2).setX(gameState.getEntities().get(Entity2).getX() - minMove );
+                    }else if (tankbX2 == minMove2 ) {
+                        gameState.getEntities().get(Entity2).setX(gameState.getEntities().get(Entity2).getX() + minMove );
+                    }else if (tankbY1 == minMove2 ) {
+                        gameState.getEntities().get(Entity2).setY(gameState.getEntities().get(Entity2).getY() - minMove);
+                    }else if (tankbY2 == minMove2 ) {
+                        gameState.getEntities().get(Entity2).setY(gameState.getEntities().get(Entity2).getY() + minMove);
+                    }
+
+
+                }
             }
            }
 
