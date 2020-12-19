@@ -216,20 +216,12 @@ public class GameDriver {
         //We can always check by using System.out to check items
        // System.out.println(gameState.getShellList().size());
 
-        //
-
 
         //Check if any entity colids with other any entity { tell }
         //if anything colids with itself ignore (do nothing}
-
-
-
-
         for (Entity1 =0 ; Entity1 < gameState.getEntities().size() ; Entity1++)
         {
-            //We use plus one for inner loop to prevent the double of initial combinations
 
-//           int listSize = gameState.getEntities().size();
            for (Entity2 = Entity1 +1 ; Entity2 <gameState.getEntities().size() ; Entity2++)
            {
             if(entitiesOverlap(gameState.getEntities().get(Entity1),
@@ -238,20 +230,8 @@ public class GameDriver {
 
                 if (gameState.getEntities().get(Entity2) instanceof Shell && gameState.getEntities().get(Entity1)instanceof Shell )
                 {
-                    //We just remove shell if collided
-                    //TODO: removing shells when bounds checking so that their
-                    // corresponding images are also removed from the RunGameView.
 
-                    //removing shells when bounds checking so that their
-                    // corresponding images are also removed from the RunGameView.
-
-
-                    //GameStateShellRemoval()- This method does this For{ entities.remove(entity);}
-
-
-                    //I get Concurrent ConcurrentModificationException
-
-
+                    //Concurrent ConcurrentModificationException
 //                    runGameView.removeDrawableEntity(gameState.getEntities().get(Entity1).getId());
 //                    runGameView.removeDrawableEntity(gameState.getEntities().get(Entity2).getId());
                    gameState.GameStateShellRemoval(gameState.getEntities().get(Entity1));
@@ -262,10 +242,7 @@ public class GameDriver {
 //                    gameState.getEntities().remove(gameState.getEntities().get(Entity2));
 
 
-
-
 //                    I can just not simply remove it right away, I must call GameStateShellRemoval()
-//
 //                    The reason is for the NullPointerException
 //                        This occurs because the Entity is not removed in Program State
 //                            REMEMBER: Watch out for in the future- Shifts all element in the future foward
@@ -540,23 +517,6 @@ public class GameDriver {
                 runGameView.removeDrawableEntity(shell.getId());
             }
         }
-
-
-//        //This would check if tanks overlap,
-//        for (shellIndex = 0; shellIndex<gameState.getEntities().size()-1;shellIndex ++ ){
-//            Entity shell1 = gameState.getEntities().get(shellIndex);
-//            Entity shell2 = gameState.getEntities().get(shellIndex+1);
-//            if(gameState.entitiesOverlap(shell1,shell2)){
-//                //gameState.shellCollision();
-//                System.out.println("Tanks has collided");
-//            }
-//        }
-
-
-
-
-
-
         return true;
 
     }
