@@ -88,7 +88,7 @@ public class GameDriver {
                 );
 
         Tank aiTank =
-                new ChasingPushOverAITank(
+                new CushionAITank(
                         GameState.AI_TANK_ID,
                         RunGameView.AI_TANK_INITIAL_X,
                         RunGameView.AI_TANK_INITIAL_Y,
@@ -278,20 +278,6 @@ public class GameDriver {
                             gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
 
 
-                    //Problem is that the Entity is not removed from gameState
-                    //Gonna to remove them again inside programState
-                    //remove specific shell
-                    //will shift all element shell around
-                        //Shift forward
-
-                    //index move (settingShellRemocal maybe)
-                    //A possible solution is
-                    //not remove right away
-
-
-
-                   // System.out.println("shell and Shell has colided ");
-
                 }
                 if (gameState.getEntities().get(Entity1) instanceof Shell && gameState.getEntities().get(Entity2)instanceof Tank )
                 {
@@ -301,7 +287,7 @@ public class GameDriver {
                     runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
                             gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
 
-                    System.out.println("shell and Tank has colided ");
+
 
                 }
                 if (gameState.getEntities().get(Entity2) instanceof Shell && gameState.getEntities().get(Entity1)instanceof Tank )
@@ -312,7 +298,7 @@ public class GameDriver {
                     runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
                             gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
 
-                    System.out.println("shell and Tank has colided ");
+
 
                 }
                 if (gameState.getEntities().get(Entity1) instanceof Shell && gameState.getEntities().get(Entity2)instanceof Wall )
@@ -322,7 +308,7 @@ public class GameDriver {
                             ,gameState.getEntities().get(Entity1).getX(),gameState.getEntities().get(Entity1).getY());
                     runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
                             gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
-                    System.out.println("shell and Wall has colided ");
+
 
                 }
                 if (gameState.getEntities().get(Entity2) instanceof Shell && gameState.getEntities().get(Entity1)instanceof Wall )
@@ -332,17 +318,15 @@ public class GameDriver {
                             ,gameState.getEntities().get(Entity1).getX(),gameState.getEntities().get(Entity1).getY());
                     runGameView.addAnimation(RunGameView.SHELL_EXPLOSION_ANIMATION, RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
                             gameState.getEntities().get(Entity2).getX(),gameState.getEntities().get(Entity2).getY());
-                    System.out.println("shell and Wall has colided ");
+
 
                 }
                 if (gameState.getEntities().get(Entity1) instanceof Tank && gameState.getEntities().get(Entity2)instanceof Wall )
                 {
-                    System.out.println("Tank and Wall has colided ");
-
                 }
                 if (gameState.getEntities().get(Entity2) instanceof Tank && gameState.getEntities().get(Entity1)instanceof Wall )
                 {
-                    System.out.println("Tank and Wall has colided ");
+
                     //tankb is player tank
                     //left
                     double tankbX1 = gameState.getEntities().get(Entity1).getXBound() - gameState.getEntities().get(Entity2).getX();

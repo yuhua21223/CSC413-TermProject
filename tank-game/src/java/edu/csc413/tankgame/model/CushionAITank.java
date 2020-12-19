@@ -3,8 +3,8 @@ package edu.csc413.tankgame.model;
 import static edu.csc413.tankgame.model.GameState.*;
 import static edu.csc413.tankgame.model.GameState.TANK_Y_UPPER_BOUND;
 
-public class ChasingPushOverAITank extends Tank {
-    public ChasingPushOverAITank(String id, double x, double y, double angle) {
+public class CushionAITank extends Tank {
+    public CushionAITank(String id, double x, double y, double angle) {
         super(id, x, y, angle);
     }
 
